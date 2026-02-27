@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: #e0e5ec;
+  color: #4a5568;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #e0e5ec;
+}
+::-webkit-scrollbar-thumb {
+  background: #a3b1c6;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8a99af;
+}
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Neumorphic Utilities */
+.neu-flat {
+  background: #e0e5ec;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
+  border-radius: 20px;
+}
+
+.neu-pressed {
+  background: #e0e5ec;
+  box-shadow: inset 6px 6px 10px 0 rgba(163,177,198, 0.7), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+  border-radius: 20px;
+}
+
+/* Specific Calculator Styles matching the image */
+.calc-body {
+  background: #e0e5ec;
+  border-radius: 30px;
+  box-shadow: 14px 14px 28px #b8bcc2, -14px -14px 28px #ffffff;
+}
+
+.calc-display {
+  background: #e0e5ec;
+  border-radius: 16px;
+  box-shadow: inset 6px 6px 12px #b8bcc2, inset -6px -6px 12px #ffffff;
+  color: #6b7280;
+}
+
+.calc-btn {
+  background: #e0e5ec;
+  border-radius: 12px;
+  box-shadow: 6px 6px 12px #b8bcc2, -6px -6px 12px #ffffff;
+  color: #4b5563;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 1.75rem;
+}
+
+.calc-btn:active {
+  box-shadow: inset 4px 4px 8px #b8bcc2, inset -4px -4px 8px #ffffff;
+}
+
+.calc-btn-dark {
+  background: #5a5a5a;
+  box-shadow: 6px 6px 12px #b8bcc2, -6px -6px 12px #ffffff;
+  color: #ffffff;
+}
+
+.calc-btn-dark:active {
+  box-shadow: inset 4px 4px 8px #3a3a3a, inset -4px -4px 8px #7a7a7a;
+}
+
+.calc-btn-red {
+  background: #c81010;
+  box-shadow: 6px 6px 12px #b8bcc2, -6px -6px 12px #ffffff;
+  color: #ffffff;
+}
+
+.calc-btn-red:active {
+  box-shadow: inset 4px 4px 8px #8a0b0b, inset -4px -4px 8px #ff3333;
+}
+
+/* Ad Space */
+.ad-container {
+  background: #e0e5ec;
+  box-shadow: inset 4px 4px 8px #b8bcc2, inset -4px -4px 8px #ffffff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  position: relative;
+  overflow: hidden;
+}
+.ad-container::before {
+  content: 'Advertisement';
+  position: absolute;
+  top: 8px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
+}
+
+/* Overriding dark theme classes for other calculators to fit light theme */
+.bg-zinc-900, .bg-zinc-950, .bg-zinc-950\/50, .bg-zinc-950\/80 {
+  background-color: #e0e5ec !important;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5) !important;
+  border: none !important;
+}
+
+.border-zinc-800, .border-zinc-800\/50 {
+  border-color: transparent !important;
+}
+
+.text-zinc-400, .text-zinc-500 {
+  color: #64748b !important;
+}
+
+.text-zinc-100, .text-zinc-200, .text-zinc-300 {
+  color: #334155 !important;
+}
+
+.glass-panel {
+  background: #e0e5ec !important;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5) !important;
+  border: none !important;
+  backdrop-filter: none !important;
+}
+
+input[type="number"], input[type="text"], input[type="date"], input[type="time"], select {
+  background: #e0e5ec !important;
+  box-shadow: inset 6px 6px 10px 0 rgba(163,177,198, 0.7), inset -6px -6px 10px 0 rgba(255,255,255, 0.8) !important;
+  color: #334155 !important;
+  border: none !important;
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #3b82f6, #8b5cf6);
+}
