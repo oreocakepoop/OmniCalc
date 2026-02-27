@@ -36,45 +36,92 @@ export function Sidebar({ activeId, onSelect, isOpen, setIsOpen }: SidebarProps)
 
   const filtered = calculators.filter(c => 
     c.name.toLowerCase().includes(search.toLowerCase()) || 
-    c.description.toLowerCase().includes(search.toLowerCase())
+    c.category.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Group by category
+  const categories = Array.from(new Set(filtered.map(c => c.category)));
 
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/20 z-40 lg:hidden backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+        <div className="fixed inset-0 bg-charcoal/20 z-40 lg:hidden backdrop-blur-sm" onClick={() => setIsOpen(false)} />
       )}
       
-      <aside className={`fixed lg:sticky top-4 left-0 z-50 h-[calc(100vh-2rem)] w-72 neu-flat flex flex-col transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-4' : '-translate-x-full lg:translate-x-0'}`}>
-        <div className="p-6 pb-2">
-          <div className="relative">
-            <i className="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <aside className={`fixed lg:static top-0 left-0 z-50 h-screen w-full sm:w-[400px] bg-sage-bg flex flex-col transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+        
+        <div className="p-8 pb-6 flex justify-between items-start shrink-0">
+          <div>
+            <div className="w-12 h-12 rounded-full bg-charcoal text-mustard flex items-center justify-center mb-6 shadow-lg">
+              <i className="fa-solid fa-user text-xl"></i>
+            </div>
+            <h1 className="font-display text-4xl font-light text-sage-darker leading-tight">
+              All Recent<br/><span className="font-bold text-charcoal">Calculators</span>
+            </h1>
+          </div>
+          <button className="lg:hidden w-10 h-10 flex items-center justify-center text-charcoal" onClick={() => setIsOpen(false)}>
+            <i className="fa-solid fa-xmark text-2xl"></i>
+          </button>
+          <div className="hidden lg:flex w-10 h-10 items-center justify-center text-charcoal">
+            <i className="fa-solid fa-grip text-2xl opacity-50"></i>
+          </div>
+        </div>
+
+        <div className="px-8 pb-6 shrink-0">
+          <div className="relative group">
+            <i className="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40 group-focus-within:text-mustard transition-colors"></i>
             <input 
               type="text" 
               placeholder="Search tools..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full neu-pressed rounded-xl pl-10 pr-4 py-3 text-sm text-slate-600 focus:outline-none placeholder-slate-400 font-semibold"
+              className="w-full bg-sage-dark/10 border-2 border-transparent focus:border-charcoal focus:bg-charcoal focus:text-offwhite rounded-2xl pl-12 pr-4 py-4 text-charcoal font-display font-bold placeholder-charcoal/40 transition-all outline-none"
             />
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
-          {filtered.map(calc => (
-            <button
-              key={calc.id}
-              onClick={() => {
-                onSelect(calc.id);
-                if (window.innerWidth < 1024) setIsOpen(false);
-              }}
-              className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-left font-semibold ${activeId === calc.id ? 'neu-pressed text-blue-600' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
-            >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${activeId === calc.id ? 'bg-blue-100 text-blue-600' : 'bg-slate-200 text-slate-500'}`}>
-                <i className={calc.icon}></i>
+        <div className="flex-1 overflow-y-auto sidebar-scroll flex flex-col pb-8">
+          {categories.map(category => (
+            <div key={category} className="mb-4">
+              <div className="sticky top-0 bg-sage-bg/95 backdrop-blur-sm z-10 px-8 py-3 flex items-center gap-3">
+                <h3 className="font-display font-bold text-charcoal uppercase tracking-widest text-xs">{category}</h3>
+                <div className="h-px bg-sage-dark/20 flex-1"></div>
               </div>
-              <span className="truncate">{calc.name}</span>
-            </button>
+              
+              <div className="flex flex-col">
+                {filtered.filter(c => c.category === category).map(calc => {
+                  const isActive = activeId === calc.id;
+                  return (
+                    <button
+                      key={calc.id}
+                      onClick={() => {
+                        onSelect(calc.id);
+                        if (window.innerWidth < 1024) setIsOpen(false);
+                      }}
+                      className="flex w-full group transition-transform active:scale-[0.98] cursor-pointer border-b border-sage-dark/10 last:border-0"
+                    >
+                      <div className={`w-24 h-24 flex items-center justify-center transition-colors duration-300 ${isActive ? 'bg-charcoal text-mustard' : 'bg-sage-darker text-offwhite group-hover:bg-charcoal'}`}>
+                        <i className={`${calc.icon} text-2xl ${isActive ? 'scale-110' : 'scale-100 group-hover:scale-110'} transition-transform duration-300`}></i>
+                      </div>
+                      <div className={`flex-1 h-24 flex flex-col justify-center px-6 text-left transition-colors duration-300 ${isActive ? 'bg-mustard text-charcoal' : 'bg-sage-mid text-charcoal group-hover:bg-sage-light'}`}>
+                        <span className="font-display font-bold text-xl tracking-tight">{calc.name}</span>
+                        <span className={`text-xs font-medium mt-1 line-clamp-1 ${isActive ? 'text-charcoal/70' : 'text-sage-darker/60 group-hover:text-charcoal/60'}`}>
+                          {calc.description}
+                        </span>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
           ))}
+
+          {filtered.length === 0 && (
+            <div className="p-8 text-center text-sage-darker font-medium">
+              <i className="fa-solid fa-ghost text-4xl mb-3 opacity-20"></i>
+              <p>No calculators found.</p>
+            </div>
+          )}
         </div>
       </aside>
     </>

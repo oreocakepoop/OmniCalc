@@ -1,20 +1,13 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
+import { motion } from 'motion/react';
 
-// Mock rates relative to USD
-const rates: Record<string, { rate: number, symbol: string, name: string, flag: string }> = {
-  USD: { rate: 1, symbol: '$', name: 'US Dollar', flag: '🇺🇸' },
-  EUR: { rate: 0.92, symbol: '€', name: 'Euro', flag: '🇪🇺' },
-  GBP: { rate: 0.79, symbol: '£', name: 'British Pound', flag: '🇬🇧' },
-  JPY: { rate: 150.4, symbol: '¥', name: 'Japanese Yen', flag: '🇯🇵' },
-  CAD: { rate: 1.35, symbol: 'C$', name: 'Canadian Dollar', flag: '🇨🇦' },
-  AUD: { rate: 1.52, symbol: 'A$', name: 'Australian Dollar', flag: '🇦🇺' },
-  INR: { rate: 82.9, symbol: '₹', name: 'Indian Rupee', flag: '🇮🇳' },
-  CNY: { rate: 7.19, symbol: '¥', name: 'Chinese Yuan', flag: '🇨🇳' },
+// Mock rates
+const rates: Record<string, { rate: number, symbol: string, name: string }> = {
+  USD: { rate: 1, symbol: '$', name: 'US Dollar' },
+  EUR: { rate: 0.903, symbol: '€', name: 'Euro' },
 };
 
 export function CurrencyCalc() {
-  const { themeClasses } = useTheme();
   const [amount, setAmount] = useState('100');
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
@@ -23,56 +16,80 @@ export function CurrencyCalc() {
   const inUSD = val / rates[from].rate;
   const result = inUSD * rates[to].rate;
 
+  const handleNum = (num: string) => {
+    setAmount(prev => prev === '0' && num !== '.' ? num : prev + num);
+  };
+
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 }).format(num);
+  };
+
   return (
-    <div className="w-full max-w-md mx-auto glass-panel rounded-3xl p-6 sm:p-8">
-      <div className="text-center mb-8">
-        <div className="text-zinc-500 text-sm mb-2">Exchange Rate (Mock Data)</div>
-        <div className="text-xs font-mono text-zinc-400">
-          1 {from} = {(rates[to].rate / rates[from].rate).toFixed(4)} {to}
+    <div className="flex-1 flex flex-col bg-[#16171a] h-full">
+      {/* Display Area */}
+      <div className="p-6 space-y-6 flex-1 flex flex-col justify-center">
+        <div>
+          <div className="text-slate-400 text-sm mb-2">
+            {rates[from].name}, {rates[from].symbol}1 = {rates[to].symbol}{(rates[to].rate / rates[from].rate).toFixed(3)}
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="text-white text-5xl font-semibold tracking-tight">
+              {rates[from].symbol}{formatNumber(val)}
+            </div>
+            <i className="fa-solid fa-chevron-down text-[#20c976] text-xl"></i>
+          </div>
+        </div>
+        
+        <div className="h-[1px] bg-[#222429] w-full my-4"></div>
+        
+        <div>
+          <div className="text-slate-400 text-sm mb-2">
+            {rates[to].name}, {rates[to].symbol}1 = {rates[from].symbol}{(rates[from].rate / rates[to].rate).toFixed(3)}
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="text-white text-5xl font-semibold tracking-tight">
+              {rates[to].symbol}{formatNumber(result)}
+            </div>
+            <i className="fa-solid fa-chevron-down text-[#20c976] text-xl"></i>
+          </div>
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="relative bg-zinc-950/50 border border-zinc-800 rounded-2xl p-4 transition-all focus-within:border-zinc-600">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-medium text-zinc-500 uppercase">You Send</span>
-            <select value={from} onChange={(e) => setFrom(e.target.value)}
-              className="bg-transparent text-zinc-300 text-sm font-medium focus:outline-none cursor-pointer">
-              {Object.keys(rates).map(c => <option key={c} value={c}>{rates[c].flag} {c}</option>)}
-            </select>
-          </div>
-          <div className="flex items-center">
-            <span className="text-2xl text-zinc-500 mr-2">{rates[from].symbol}</span>
-            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)}
-              className="w-full bg-transparent text-3xl font-light font-mono text-zinc-100 focus:outline-none" placeholder="0" />
-          </div>
-        </div>
-
-        <div className="flex justify-center -my-2 relative z-10">
-          <button 
-            onClick={() => { setFrom(to); setTo(from); }}
-            className={`w-10 h-10 rounded-full bg-zinc-800 border-4 border-[#09090b] flex items-center justify-center text-zinc-400 hover:text-zinc-100 transition-colors`}
-          >
-            ⇅
-          </button>
-        </div>
-
-        <div className={`relative bg-zinc-950/50 border ${themeClasses.border} rounded-2xl p-4`}>
-          <div className="flex justify-between items-center mb-2">
-            <span className={`text-xs font-medium ${themeClasses.text} uppercase`}>They Receive</span>
-            <select value={to} onChange={(e) => setTo(e.target.value)}
-              className="bg-transparent text-zinc-300 text-sm font-medium focus:outline-none cursor-pointer">
-              {Object.keys(rates).map(c => <option key={c} value={c}>{rates[c].flag} {c}</option>)}
-            </select>
-          </div>
-          <div className="flex items-center">
-            <span className={`text-2xl ${themeClasses.text} opacity-70 mr-2`}>{rates[to].symbol}</span>
-            <div className={`w-full text-3xl font-light font-mono ${themeClasses.text} overflow-hidden`}>
-              {result.toFixed(2)}
-            </div>
-          </div>
-        </div>
+      {/* Keypad */}
+      <div className="mt-auto grid grid-cols-3 gap-[1px] bg-[#16171a] p-[1px]">
+        <Key icon="fa-solid fa-clock-rotate-left" color="#20c976" />
+        <Key icon="fa-solid fa-arrows-rotate" color="#20c976" onClick={() => { setFrom(to); setTo(from); }} />
+        <Key text="C" color="#20c976" onClick={() => setAmount('0')} />
+        
+        <Key text="1" onClick={() => handleNum('1')} />
+        <Key text="2" onClick={() => handleNum('2')} />
+        <Key text="3" onClick={() => handleNum('3')} />
+        
+        <Key text="4" onClick={() => handleNum('4')} />
+        <Key text="5" onClick={() => handleNum('5')} />
+        <Key text="6" onClick={() => handleNum('6')} />
+        
+        <Key text="7" onClick={() => handleNum('7')} />
+        <Key text="8" onClick={() => handleNum('8')} />
+        <Key text="9" onClick={() => handleNum('9')} />
+        
+        <Key text="," onClick={() => handleNum('.')} />
+        <Key text="0" onClick={() => handleNum('0')} />
+        <Key icon="fa-solid fa-arrow-turn-down fa-rotate-90" color="#20c976" />
       </div>
     </div>
+  );
+}
+
+function Key({ text, icon, color = 'white', onClick }: any) {
+  return (
+    <motion.button
+      whileTap={{ scale: 0.95, backgroundColor: '#2a2d35' }}
+      onClick={onClick}
+      className="calc-key h-20 col-span-1"
+      style={{ color }}
+    >
+      {icon ? <i className={icon}></i> : text}
+    </motion.button>
   );
 }

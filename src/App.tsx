@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CalculatorId } from './types';
 import { Sidebar, calculators } from './components/Sidebar';
@@ -26,15 +26,44 @@ import { CookingCalc } from './components/calculators/CookingCalc';
 import { ProportionCalc } from './components/calculators/ProportionCalc';
 import { ROICalc } from './components/calculators/ROICalc';
 
+// QOL: Toast Context
+interface ToastContextType {
+  showToast: (message: string) => void;
+}
+export const ToastContext = createContext<ToastContextType>({ showToast: () => {} });
+export const useToast = () => useContext(ToastContext);
+
+// QOL: Haptic Feedback Helper
+export const vibrate = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) {
+    navigator.vibrate(50);
+  }
+};
+
 function AppContent() {
   const [activeId, setActiveId] = useState<CalculatorId>('standard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
 
   const activeCalc = calculators.find(c => c.id === activeId);
+  const activeIndex = calculators.findIndex(c => c.id === activeId);
 
   useEffect(() => {
     document.title = `${activeCalc?.name || 'OmniCalc'} | Free Online Calculators`;
   }, [activeCalc]);
+
+  const showToast = (msg: string) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(''), 2500);
+  };
+
+  const navigateCalc = (direction: 'prev' | 'next') => {
+    vibrate();
+    let newIndex = direction === 'next' ? activeIndex + 1 : activeIndex - 1;
+    if (newIndex < 0) newIndex = calculators.length - 1;
+    if (newIndex >= calculators.length) newIndex = 0;
+    setActiveId(calculators[newIndex].id);
+  };
 
   const renderCalculator = () => {
     switch (activeId) {
@@ -63,135 +92,105 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#e0e5ec] text-slate-700 font-sans selection:bg-blue-200 pb-8">
-      {/* Top Navbar */}
-      <nav className="neu-flat mx-4 mt-4 px-6 py-4 flex items-center justify-between z-30 relative">
-        <div className="flex items-center gap-4">
-          <button 
-            className="lg:hidden w-10 h-10 neu-flat rounded-xl flex items-center justify-center text-slate-500 active:neu-pressed"
-            onClick={() => setIsSidebarOpen(true)}
-          >
-            <i className="fa-solid fa-bars"></i>
-          </button>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 neu-pressed rounded-xl flex items-center justify-center text-blue-500 text-xl">
-              <i className="fa-solid fa-calculator"></i>
-            </div>
-            <span className="text-2xl font-bold tracking-tight text-slate-700">OmniCalc</span>
-          </div>
-        </div>
-        <div className="hidden md:flex gap-6 font-semibold text-slate-500">
-          <a href="#" className="hover:text-blue-500 transition-colors">Home</a>
-          <a href="#" className="hover:text-blue-500 transition-colors">Categories</a>
-          <a href="#" className="hover:text-blue-500 transition-colors">About</a>
-          <a href="#" className="hover:text-blue-500 transition-colors">Contact</a>
-        </div>
-      </nav>
+    <ToastContext.Provider value={{ showToast }}>
+      <div className="min-h-screen bg-sage-bg text-charcoal font-sans flex justify-center selection:bg-mustard selection:text-charcoal">
+        
+        {/* QOL: Toast Notification */}
+        <AnimatePresence>
+          {toastMsg && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-charcoal text-mustard px-6 py-3 rounded-full font-display font-semibold shadow-2xl flex items-center gap-3"
+            >
+              <i className="fa-solid fa-circle-check"></i>
+              {toastMsg}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      <div className="max-w-[1600px] mx-auto p-4 flex gap-6 relative">
-        {/* Left Sidebar */}
-        <Sidebar 
-          activeId={activeId} 
-          onSelect={setActiveId} 
-          isOpen={isSidebarOpen}
-          setIsOpen={setIsSidebarOpen}
-        />
-
-        {/* Main Content */}
-        <main className="flex-1 flex flex-col min-w-0">
-          {/* Top Ad Banner */}
-          <div className="w-full h-[90px] ad-container mb-6 hidden md:flex">
-            <span className="text-xl"><i className="fa-solid fa-rectangle-ad mr-2"></i> Leaderboard Ad (728x90)</span>
-          </div>
-
-          <div className="neu-flat p-6 lg:p-10 mb-6">
-            <div className="mb-10 text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-slate-700 mb-3">
-                {activeCalc?.name} Calculator
-              </h1>
-              <p className="text-slate-500 text-lg">
-                {activeCalc?.description}
-              </p>
-            </div>
-
-            <div className="flex justify-center w-full">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeId}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-full flex justify-center"
-                >
-                  {renderCalculator()}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* SEO Content Area */}
-          <div className="neu-flat p-6 lg:p-10 mb-6">
-            <h2 className="text-2xl font-bold mb-4 text-slate-700">About the {activeCalc?.name} Calculator</h2>
-            <p className="mb-4 text-slate-600 leading-relaxed">
-              Welcome to our free online {activeCalc?.name.toLowerCase()} calculator. This tool is designed to help you quickly and accurately perform calculations related to {activeCalc?.category.toLowerCase()} and everyday tasks. Whether you're a student, professional, or just need a quick answer, our tool provides instant results.
-            </p>
-            <h3 className="text-xl font-bold mb-3 text-slate-700">How to use this tool</h3>
-            <ul className="list-disc pl-5 mb-4 text-slate-600 space-y-2">
-              <li>Enter your values into the input fields above.</li>
-              <li>The calculator will automatically process the data.</li>
-              <li>Review your results instantly without page reloads.</li>
-            </ul>
-            <p className="text-slate-600 leading-relaxed">
-              Bookmark this page for future use and explore our other free calculators in the sidebar!
-            </p>
-          </div>
-        </main>
-
-        {/* Right Sidebar (Ads & Collabs) */}
-        <aside className="hidden xl:flex w-80 flex-col gap-6 shrink-0">
-          <div className="w-full h-[250px] ad-container">
-            <span><i className="fa-solid fa-rectangle-ad mr-2"></i> Medium Rectangle (300x250)</span>
-          </div>
+        <div className="w-full max-w-[1400px] flex flex-col lg:flex-row shadow-2xl bg-sage-bg overflow-hidden relative">
           
-          <div className="neu-flat p-6">
-            <h3 className="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
-              <i className="fa-solid fa-fire text-orange-500"></i> Popular Tools
-            </h3>
-            <div className="space-y-3">
-              {['Mortgage', 'BMI', 'Percentage', 'Salary'].map(name => (
-                <button 
-                  key={name}
-                  onClick={() => setActiveId(calculators.find(c => c.name === name)?.id as CalculatorId)}
-                  className="w-full text-left px-4 py-3 neu-flat text-slate-600 font-semibold hover:text-blue-500 active:neu-pressed transition-all"
-                >
-                  {name} Calculator
-                </button>
-              ))}
+          {/* Mobile Header */}
+          <div className="lg:hidden p-6 flex justify-between items-center bg-sage-bg border-b border-sage-dark/20 z-30">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-charcoal text-mustard flex items-center justify-center shadow-lg">
+                <i className="fa-solid fa-user"></i>
+              </div>
+              <h1 className="font-display text-2xl font-bold text-charcoal">OmniCalc</h1>
             </div>
+            <button className="w-10 h-10 flex items-center justify-center text-charcoal" onClick={() => setIsSidebarOpen(true)}>
+              <i className="fa-solid fa-bars text-2xl"></i>
+            </button>
           </div>
 
-          <div className="w-full h-[600px] ad-container">
-            <span><i className="fa-solid fa-rectangle-ad mr-2"></i> Half Page Ad (300x600)</span>
+          {/* Left Sidebar */}
+          <div className="hidden lg:block w-[400px] border-r border-sage-dark/20 h-screen overflow-hidden shrink-0 bg-sage-bg z-20">
+            <Sidebar 
+              activeId={activeId} 
+              onSelect={setActiveId} 
+              isOpen={true}
+              setIsOpen={() => {}}
+            />
           </div>
-        </aside>
+
+          {/* Mobile Sidebar Overlay */}
+          <div className="lg:hidden">
+            <Sidebar 
+              activeId={activeId} 
+              onSelect={setActiveId} 
+              isOpen={isSidebarOpen}
+              setIsOpen={setIsSidebarOpen}
+            />
+          </div>
+
+          {/* Right Content */}
+          <main className="flex-1 flex flex-col h-[calc(100vh-89px)] lg:h-screen overflow-y-auto bg-sage-bg relative">
+            
+            <div className="p-6 lg:p-12 pb-6 flex justify-between items-start">
+              <div>
+                <h2 className="font-display text-3xl lg:text-5xl font-light text-sage-darker leading-tight">
+                  Use your<br/><span className="font-bold text-charcoal">{activeCalc?.name}</span>
+                </h2>
+                <p className="text-sage-darker mt-2 font-medium">{activeCalc?.description}</p>
+              </div>
+              <div className="hidden lg:flex w-12 h-12 items-center justify-center text-charcoal">
+                <i className="fa-solid fa-grip text-3xl opacity-50"></i>
+              </div>
+            </div>
+
+            <div className="flex-1 p-6 lg:p-12 pt-0 flex flex-col items-center justify-start w-full">
+              <div className="w-full max-w-2xl">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeId}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-full"
+                  >
+                    {renderCalculator()}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* QOL: Quick Navigation */}
+              <div className="w-full max-w-2xl mt-12 flex justify-between items-center border-t border-sage-dark/20 pt-6">
+                <button onClick={() => navigateCalc('prev')} className="flex items-center gap-3 text-sage-darker hover:text-charcoal transition-colors font-display font-semibold">
+                  <i className="fa-solid fa-arrow-left"></i> Previous
+                </button>
+                <button onClick={() => navigateCalc('next')} className="flex items-center gap-3 text-sage-darker hover:text-charcoal transition-colors font-display font-semibold">
+                  Next <i className="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+
+            </div>
+          </main>
+        </div>
       </div>
-
-      {/* Footer */}
-      <footer className="neu-flat mx-4 mb-4 p-8 text-center text-slate-500">
-        <div className="flex justify-center gap-6 mb-4 text-2xl">
-          <a href="#" className="hover:text-blue-500 transition-colors"><i className="fa-brands fa-twitter"></i></a>
-          <a href="#" className="hover:text-blue-500 transition-colors"><i className="fa-brands fa-facebook"></i></a>
-          <a href="#" className="hover:text-blue-500 transition-colors"><i className="fa-brands fa-github"></i></a>
-        </div>
-        <p className="mb-2 font-semibold">© {new Date().getFullYear()} OmniCalc. All rights reserved.</p>
-        <div className="flex justify-center gap-4 text-sm">
-          <a href="#" className="hover:text-blue-500">Privacy Policy</a>
-          <a href="#" className="hover:text-blue-500">Terms of Service</a>
-          <a href="#" className="hover:text-blue-500">Contact Us</a>
-        </div>
-      </footer>
-    </div>
+    </ToastContext.Provider>
   );
 }
 
