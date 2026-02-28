@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
-export type ThemeColor = 'violet' | 'emerald' | 'rose' | 'blue' | 'amber';
+export type ThemeColor = 'mustard' | 'charcoal' | 'sage';
 
 interface ThemeContextType {
   theme: ThemeColor;
@@ -9,20 +9,50 @@ interface ThemeContextType {
   themeClasses: any;
 }
 
+// Map all themes to the new blocky aesthetic to ensure consistency across all legacy calculators
 export const themeMap = {
-  violet: { bg: 'bg-violet-600', text: 'text-violet-400', border: 'border-violet-500/50', hover: 'hover:bg-violet-500', ring: 'focus-visible:ring-violet-500', muted: 'bg-violet-500/10 text-violet-400' },
-  emerald: { bg: 'bg-emerald-600', text: 'text-emerald-400', border: 'border-emerald-500/50', hover: 'hover:bg-emerald-500', ring: 'focus-visible:ring-emerald-500', muted: 'bg-emerald-500/10 text-emerald-400' },
-  rose: { bg: 'bg-rose-600', text: 'text-rose-400', border: 'border-rose-500/50', hover: 'hover:bg-rose-500', ring: 'focus-visible:ring-rose-500', muted: 'bg-rose-500/10 text-rose-400' },
-  blue: { bg: 'bg-blue-600', text: 'text-blue-400', border: 'border-blue-500/50', hover: 'hover:bg-blue-500', ring: 'focus-visible:ring-blue-500', muted: 'bg-blue-500/10 text-blue-400' },
-  amber: { bg: 'bg-amber-600', text: 'text-amber-400', border: 'border-amber-500/50', hover: 'hover:bg-amber-500', ring: 'focus-visible:ring-amber-500', muted: 'bg-amber-500/10 text-amber-400' },
+  mustard: { 
+    bg: 'bg-charcoal', 
+    text: 'text-mustard', 
+    border: 'border-charcoal', 
+    hover: 'hover:bg-mustard hover:text-charcoal', 
+    ring: 'focus-visible:ring-charcoal', 
+    muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' 
+  },
+  charcoal: { 
+    bg: 'bg-charcoal', 
+    text: 'text-mustard', 
+    border: 'border-charcoal', 
+    hover: 'hover:bg-mustard hover:text-charcoal', 
+    ring: 'focus-visible:ring-charcoal', 
+    muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' 
+  },
+  sage: { 
+    bg: 'bg-charcoal', 
+    text: 'text-mustard', 
+    border: 'border-charcoal', 
+    hover: 'hover:bg-mustard hover:text-charcoal', 
+    ring: 'focus-visible:ring-charcoal', 
+    muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' 
+  },
+  // Fallbacks for legacy saved themes
+  violet: { bg: 'bg-charcoal', text: 'text-mustard', border: 'border-charcoal', hover: 'hover:bg-mustard hover:text-charcoal', ring: 'focus-visible:ring-charcoal', muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' },
+  emerald: { bg: 'bg-charcoal', text: 'text-mustard', border: 'border-charcoal', hover: 'hover:bg-mustard hover:text-charcoal', ring: 'focus-visible:ring-charcoal', muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' },
+  rose: { bg: 'bg-charcoal', text: 'text-mustard', border: 'border-charcoal', hover: 'hover:bg-mustard hover:text-charcoal', ring: 'focus-visible:ring-charcoal', muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' },
+  blue: { bg: 'bg-charcoal', text: 'text-mustard', border: 'border-charcoal', hover: 'hover:bg-mustard hover:text-charcoal', ring: 'focus-visible:ring-charcoal', muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' },
+  amber: { bg: 'bg-charcoal', text: 'text-mustard', border: 'border-charcoal', hover: 'hover:bg-mustard hover:text-charcoal', ring: 'focus-visible:ring-charcoal', muted: 'bg-charcoal text-mustard border-2 border-charcoal/20' },
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useLocalStorage<ThemeColor>('omnicalc-theme', 'violet');
+  const [theme, setTheme] = useLocalStorage<ThemeColor>('omnicalc-theme', 'mustard');
+  
+  // Ensure legacy themes map to mustard
+  const activeTheme = themeMap[theme] ? theme : 'mustard';
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, themeClasses: themeMap[theme] }}>
+    <ThemeContext.Provider value={{ theme: activeTheme as ThemeColor, setTheme, themeClasses: themeMap[activeTheme as keyof typeof themeMap] }}>
       {children}
     </ThemeContext.Provider>
   );
