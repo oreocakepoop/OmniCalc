@@ -76,11 +76,11 @@ export function StandardCalc() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto flex flex-col shadow-2xl overflow-hidden rounded-[2rem] border-4 border-charcoal">
+    <div className="w-full max-w-3xl mx-auto flex flex-col shadow-2xl overflow-hidden rounded-[2rem] border-4 border-charcoal">
       
       {/* Display Block (Mustard) */}
       <div 
-        className="bg-mustard p-8 flex flex-col items-end justify-end h-48 relative group cursor-pointer active:bg-mustard-hover transition-colors"
+        className="bg-mustard p-10 flex flex-col items-end justify-end h-64 relative group cursor-pointer active:bg-mustard-hover transition-colors"
         onClick={copyToClipboard}
         title="Click to copy"
       >
@@ -90,8 +90,8 @@ export function StandardCalc() {
         <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-charcoal">
           <i className="fa-regular fa-copy text-xl"></i>
         </div>
-        <div className="text-charcoal/60 font-display text-xl mb-2 font-medium">{equation}</div>
-        <div className="text-charcoal font-display text-6xl font-bold tracking-tighter truncate w-full text-right">
+        <div className="text-charcoal/60 font-display text-3xl mb-4 font-medium">{equation}</div>
+        <div className="text-charcoal font-display text-8xl font-bold tracking-tighter truncate w-full text-right">
           {formatNumber(display)}
         </div>
       </div>
@@ -101,7 +101,7 @@ export function StandardCalc() {
         {/* Row 1 */}
         <div className="grid grid-cols-4 bg-sage-mid">
           {['7', '8', '9', '+'].map((btn) => (
-            <button key={btn} onClick={() => btn === '+' ? handleOp(btn) : handleNum(btn)} className="h-24 text-3xl font-display font-medium text-charcoal hover:bg-sage-light transition-colors active:scale-95">
+            <button key={btn} onClick={() => btn === '+' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-charcoal hover:bg-sage-light transition-colors active:scale-95">
               {btn}
             </button>
           ))}
@@ -109,7 +109,7 @@ export function StandardCalc() {
         {/* Row 2 */}
         <div className="grid grid-cols-4 bg-sage-dark">
           {['4', '5', '6', '-'].map((btn) => (
-            <button key={btn} onClick={() => btn === '-' ? handleOp(btn) : handleNum(btn)} className="h-24 text-3xl font-display font-medium text-offwhite hover:bg-sage-mid transition-colors active:scale-95">
+            <button key={btn} onClick={() => btn === '-' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-offwhite hover:bg-sage-mid transition-colors active:scale-95">
               {btn}
             </button>
           ))}
@@ -117,7 +117,7 @@ export function StandardCalc() {
         {/* Row 3 */}
         <div className="grid grid-cols-4 bg-sage-darker">
           {['1', '2', '3', 'x'].map((btn) => (
-            <button key={btn} onClick={() => btn === 'x' ? handleOp(btn) : handleNum(btn)} className="h-24 text-3xl font-display font-medium text-offwhite hover:bg-sage-dark transition-colors active:scale-95">
+            <button key={btn} onClick={() => btn === 'x' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-offwhite hover:bg-sage-dark transition-colors active:scale-95">
               {btn}
             </button>
           ))}
@@ -130,7 +130,7 @@ export function StandardCalc() {
               else if (btn === '=') calculate();
               else if (btn === '÷') handleOp(btn);
               else handleNum(btn);
-            }} className={`h-24 text-3xl font-display font-medium transition-colors active:scale-95 ${btn === '=' || btn === 'C' ? 'text-mustard hover:text-mustard-hover' : 'text-offwhite hover:text-sage-light'}`}>
+            }} className={`h-32 text-5xl font-display font-medium transition-colors active:scale-95 ${btn === '=' || btn === 'C' ? 'text-mustard hover:text-mustard-hover' : 'text-offwhite hover:text-sage-light'}`}>
               {btn}
             </button>
           ))}

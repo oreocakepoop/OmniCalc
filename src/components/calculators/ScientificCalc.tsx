@@ -68,12 +68,12 @@ export function ScientificCalc() {
   ];
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-zinc-900 rounded-3xl p-6 shadow-2xl border border-zinc-800">
-      <div className="bg-zinc-950 rounded-2xl p-6 mb-6 text-right border border-zinc-800/50">
-        <div className="text-4xl font-light font-mono tracking-tight overflow-hidden text-ellipsis break-all">{display}</div>
+    <div className="w-full max-w-4xl mx-auto bg-zinc-900 rounded-3xl p-10 shadow-2xl border border-zinc-800">
+      <div className="bg-zinc-950 rounded-2xl p-10 mb-8 text-right border border-zinc-800/50">
+        <div className="text-6xl font-light font-mono tracking-tight overflow-hidden text-ellipsis break-all">{display}</div>
       </div>
       
-      <div className="grid grid-cols-5 gap-2 sm:gap-3">
+      <div className="grid grid-cols-5 gap-3 sm:gap-4">
         {buttons.flat().map((btn, i) => (
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -92,7 +92,7 @@ export function ScientificCalc() {
               else handleNum(btn);
             }}
             className={`
-              h-12 sm:h-14 rounded-xl text-sm sm:text-lg font-medium transition-colors
+              h-20 sm:h-24 rounded-xl text-xl sm:text-3xl font-medium transition-colors
               ${['/', '*', '-', '+', '=', '^'].includes(btn) 
                 ? 'bg-violet-600 text-white hover:bg-violet-500' 
                 : ['C', '⌫'].includes(btn)

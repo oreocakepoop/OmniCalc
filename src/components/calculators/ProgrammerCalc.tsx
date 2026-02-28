@@ -41,18 +41,18 @@ export function ProgrammerCalc() {
   ] as const;
 
   return (
-    <div className="w-full max-w-3xl mx-auto glass-panel rounded-3xl p-6 sm:p-8">
-      <div className="space-y-3 mb-8">
+    <div className="w-full max-w-5xl mx-auto glass-panel rounded-3xl p-10 sm:p-12">
+      <div className="space-y-4 mb-10">
         {bases.map((b) => (
           <div 
             key={b.id}
             onClick={() => setMode(b.id)}
-            className={`flex items-center p-3 rounded-xl cursor-pointer transition-all border ${mode === b.id ? themeClasses.border + ' ' + themeClasses.muted : 'border-transparent hover:bg-zinc-900/50'}`}
+            className={`flex items-center p-5 rounded-xl cursor-pointer transition-all border ${mode === b.id ? themeClasses.border + ' ' + themeClasses.muted : 'border-transparent hover:bg-zinc-900/50'}`}
           >
-            <div className={`w-12 text-xs font-bold tracking-wider ${mode === b.id ? themeClasses.text : 'text-zinc-500'}`}>
+            <div className={`w-16 text-lg font-bold tracking-wider ${mode === b.id ? themeClasses.text : 'text-zinc-500'}`}>
               {b.id}
             </div>
-            <div className={`flex-1 font-mono text-lg truncate ${mode === b.id ? 'text-zinc-100' : 'text-zinc-400'}`}>
+            <div className={`flex-1 font-mono text-2xl truncate ${mode === b.id ? 'text-zinc-100' : 'text-zinc-400'}`}>
               {b.val || '0'}
             </div>
           </div>
@@ -64,16 +64,16 @@ export function ProgrammerCalc() {
           type="text"
           value={currentStr()}
           onChange={(e) => handleInput(e.target.value)}
-          className={`w-full bg-zinc-950/80 border border-zinc-800 rounded-2xl px-6 py-5 text-2xl font-mono text-zinc-100 focus:outline-none ${themeClasses.ring} transition-all uppercase`}
+          className={`w-full bg-zinc-950/80 border border-zinc-800 rounded-2xl px-8 py-8 text-4xl font-mono text-zinc-100 focus:outline-none ${themeClasses.ring} transition-all uppercase`}
           placeholder="0"
           spellCheck="false"
         />
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-zinc-600 uppercase tracking-widest">
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 text-lg font-bold text-zinc-600 uppercase tracking-widest">
           {mode} INPUT
         </div>
       </div>
       
-      <div className="grid grid-cols-4 gap-3 mt-6">
+      <div className="grid grid-cols-4 gap-4 mt-8">
         {['AND', 'OR', 'XOR', 'NOT', '<<', '>>'].map((op) => (
           <button
             key={op}
@@ -83,7 +83,7 @@ export function ProgrammerCalc() {
               if (op === '>>') setValue(value >> 1n);
               // AND/OR/XOR require a second operand, simplified for demo
             }}
-            className="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 py-3 rounded-xl font-mono text-sm transition-colors"
+            className="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 py-6 rounded-xl font-mono text-xl transition-colors"
           >
             {op}
           </button>

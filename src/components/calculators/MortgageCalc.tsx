@@ -43,21 +43,21 @@ export function MortgageCalc() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto flex flex-col shadow-2xl overflow-hidden rounded-[2rem] border-4 border-charcoal">
+    <div className="w-full max-w-3xl mx-auto flex flex-col shadow-2xl overflow-hidden rounded-[2rem] border-4 border-charcoal">
       
       {/* Result Block (Mustard) */}
       <div 
-        className="bg-mustard p-8 flex flex-col items-start justify-end h-48 relative group cursor-pointer active:bg-mustard-hover transition-colors"
+        className="bg-mustard p-10 flex flex-col items-start justify-end h-64 relative group cursor-pointer active:bg-mustard-hover transition-colors"
         onClick={copyToClipboard}
         title="Click to copy"
       >
-        <div className="absolute top-6 left-6 text-charcoal/40 font-bold tracking-widest text-sm uppercase">
+        <div className="absolute top-8 left-8 text-charcoal/40 font-bold tracking-widest text-lg uppercase">
           Monthly Payment
         </div>
-        <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-charcoal">
-          <i className="fa-regular fa-copy text-xl"></i>
+        <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity text-charcoal">
+          <i className="fa-regular fa-copy text-2xl"></i>
         </div>
-        <div className="text-charcoal font-display text-5xl font-bold tracking-tighter truncate w-full">
+        <div className="text-charcoal font-display text-7xl font-bold tracking-tighter truncate w-full">
           {monthlyPayment > 0 ? formatCurrency(monthlyPayment) : '$0.00'}
         </div>
       </div>
@@ -66,67 +66,67 @@ export function MortgageCalc() {
       <div className="flex flex-col">
         
         {/* Principal */}
-        <div className="bg-sage-mid p-6 flex items-center justify-between border-b border-charcoal/10">
-          <label className="text-charcoal font-display font-semibold uppercase tracking-widest text-sm">Loan Amount</label>
+        <div className="bg-sage-mid p-8 flex items-center justify-between border-b border-charcoal/10">
+          <label className="text-charcoal font-display font-semibold uppercase tracking-widest text-lg">Loan Amount</label>
           <div className="relative w-1/2">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/50 font-bold">$</span>
+            <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 font-bold text-2xl">$</span>
             <input 
               type="number" 
               value={principal} 
               onChange={(e) => setPrincipal(e.target.value)}
-              className="w-full bg-transparent text-right text-2xl font-display font-bold text-charcoal placeholder-charcoal/30 focus:outline-none"
+              className="w-full bg-transparent text-right text-4xl font-display font-bold text-charcoal placeholder-charcoal/30 focus:outline-none pl-12"
               placeholder="0"
             />
           </div>
         </div>
 
         {/* Interest Rate */}
-        <div className="bg-sage-dark p-6 flex items-center justify-between border-b border-charcoal/10">
-          <label className="text-offwhite font-display font-semibold uppercase tracking-widest text-sm">Interest Rate</label>
+        <div className="bg-sage-dark p-8 flex items-center justify-between border-b border-charcoal/10">
+          <label className="text-offwhite font-display font-semibold uppercase tracking-widest text-lg">Interest Rate</label>
           <div className="relative w-1/2">
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-offwhite/50 font-bold">%</span>
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-offwhite/50 font-bold text-2xl">%</span>
             <input 
               type="number" 
               value={rate} 
               onChange={(e) => setRate(e.target.value)}
-              className="w-full bg-transparent text-right pr-10 text-2xl font-display font-bold text-offwhite placeholder-offwhite/30 focus:outline-none"
+              className="w-full bg-transparent text-right pr-14 text-4xl font-display font-bold text-offwhite placeholder-offwhite/30 focus:outline-none"
               placeholder="0.0"
             />
           </div>
         </div>
 
         {/* Loan Term */}
-        <div className="bg-sage-darker p-6 flex items-center justify-between border-b border-charcoal/10">
-          <label className="text-offwhite font-display font-semibold uppercase tracking-widest text-sm">Loan Term</label>
+        <div className="bg-sage-darker p-8 flex items-center justify-between border-b border-charcoal/10">
+          <label className="text-offwhite font-display font-semibold uppercase tracking-widest text-lg">Loan Term</label>
           <div className="relative w-1/2">
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-offwhite/50 font-bold text-sm">YRS</span>
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-offwhite/50 font-bold text-lg">YRS</span>
             <input 
               type="number" 
               value={years} 
               onChange={(e) => setYears(e.target.value)}
-              className="w-full bg-transparent text-right pr-14 text-2xl font-display font-bold text-offwhite placeholder-offwhite/30 focus:outline-none"
+              className="w-full bg-transparent text-right pr-20 text-4xl font-display font-bold text-offwhite placeholder-offwhite/30 focus:outline-none"
               placeholder="0"
             />
           </div>
         </div>
 
         {/* Details */}
-        <div className="bg-charcoal p-6 flex flex-col gap-2">
-          <div className="flex justify-between text-sm">
+        <div className="bg-charcoal p-8 flex flex-col gap-4">
+          <div className="flex justify-between text-lg">
             <span className="text-offwhite/50 font-display uppercase tracking-widest">Total Interest</span>
             <span className="text-mustard font-display font-bold">{totalInterest > 0 ? formatCurrency(totalInterest) : '$0.00'}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-lg">
             <span className="text-offwhite/50 font-display uppercase tracking-widest">Total Cost</span>
             <span className="text-mustard font-display font-bold">{totalPayment > 0 ? formatCurrency(totalPayment) : '$0.00'}</span>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="bg-charcoal p-4 flex justify-center border-t border-offwhite/10">
+        <div className="bg-charcoal p-6 flex justify-center border-t border-offwhite/10">
           <button 
             onClick={handleReset}
-            className="text-offwhite/50 font-display font-bold uppercase tracking-widest text-xs hover:text-offwhite transition-colors active:scale-95"
+            className="text-offwhite/50 font-display font-bold uppercase tracking-widest text-sm hover:text-offwhite transition-colors active:scale-95"
           >
             Reset Values
           </button>

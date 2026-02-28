@@ -28,41 +28,41 @@ export function TimeMathCalc() {
   const result = calculateTime();
 
   return (
-    <div className="w-full max-w-md mx-auto glass-panel rounded-3xl p-6 sm:p-8">
-      <div className="space-y-6">
+    <div className="w-full max-w-3xl mx-auto glass-panel rounded-3xl p-10 sm:p-12">
+      <div className="space-y-8">
         <div>
-          <label className="block text-sm font-medium text-zinc-400 mb-2">Base Time</label>
+          <label className="block text-xl font-medium text-zinc-400 mb-4">Base Time</label>
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)}
-            className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-2xl font-mono text-center focus:outline-none ${themeClasses.ring} text-zinc-100 [color-scheme:dark]`} />
+            className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-6 py-5 text-4xl font-mono text-center focus:outline-none ${themeClasses.ring} text-zinc-100 [color-scheme:dark]`} />
         </div>
 
-        <div className="flex bg-zinc-950/50 rounded-xl p-1 border border-zinc-800">
+        <div className="flex bg-zinc-950/50 rounded-xl p-2 border border-zinc-800">
           <button onClick={() => setOperation('add')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${operation === 'add' ? themeClasses.bg + ' text-white' : 'text-zinc-400 hover:text-zinc-200'}`}>
+            className={`flex-1 py-4 text-xl font-medium rounded-lg transition-colors ${operation === 'add' ? themeClasses.bg + ' text-white' : 'text-zinc-400 hover:text-zinc-200'}`}>
             Add
           </button>
           <button onClick={() => setOperation('sub')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${operation === 'sub' ? themeClasses.bg + ' text-white' : 'text-zinc-400 hover:text-zinc-200'}`}>
+            className={`flex-1 py-4 text-xl font-medium rounded-lg transition-colors ${operation === 'sub' ? themeClasses.bg + ' text-white' : 'text-zinc-400 hover:text-zinc-200'}`}>
             Subtract
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-6">
           <div>
-            <label className="block text-xs font-medium text-zinc-500 mb-2 uppercase tracking-wider text-center">Hours</label>
+            <label className="block text-lg font-medium text-zinc-500 mb-4 uppercase tracking-wider text-center">Hours</label>
             <input type="number" value={addHours} onChange={(e) => setAddHours(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-xl text-center focus:outline-none ${themeClasses.ring}`} placeholder="0" />
+              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-6 py-5 text-3xl text-center focus:outline-none ${themeClasses.ring}`} placeholder="0" />
           </div>
           <div>
-            <label className="block text-xs font-medium text-zinc-500 mb-2 uppercase tracking-wider text-center">Minutes</label>
+            <label className="block text-lg font-medium text-zinc-500 mb-4 uppercase tracking-wider text-center">Minutes</label>
             <input type="number" value={addMins} onChange={(e) => setAddMins(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-xl text-center focus:outline-none ${themeClasses.ring}`} placeholder="0" />
+              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-6 py-5 text-3xl text-center focus:outline-none ${themeClasses.ring}`} placeholder="0" />
           </div>
         </div>
 
-        <div className={`mt-8 p-6 rounded-2xl border ${themeClasses.border} ${themeClasses.muted} text-center`}>
-          <div className="text-sm font-medium mb-2 opacity-80">Resulting Time</div>
-          <div className="text-5xl font-light font-mono">{result || '--:--'}</div>
+        <div className={`mt-12 p-10 rounded-2xl border ${themeClasses.border} ${themeClasses.muted} text-center`}>
+          <div className="text-xl font-medium mb-4 opacity-80">Resulting Time</div>
+          <div className="text-7xl font-light font-mono">{result || '--:--'}</div>
         </div>
       </div>
     </div>

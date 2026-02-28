@@ -75,27 +75,27 @@ export function UnitConverter() {
   const result = convert();
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-zinc-800">
-      <div className="flex gap-2 p-1 bg-zinc-950 rounded-xl border border-zinc-800 mb-8 overflow-x-auto">
+    <div className="w-full max-w-4xl mx-auto bg-zinc-900 rounded-3xl p-10 sm:p-12 border border-zinc-800">
+      <div className="flex gap-3 p-2 bg-zinc-950 rounded-xl border border-zinc-800 mb-10 overflow-x-auto">
         {(Object.keys(units) as Category[]).map(cat => (
           <button
             key={cat}
             onClick={() => handleCategoryChange(cat)}
-            className={`flex-1 min-w-[100px] py-2 px-4 text-sm font-medium rounded-lg capitalize transition-colors ${category === cat ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-200'}`}
+            className={`flex-1 min-w-[120px] py-4 px-6 text-lg font-medium rounded-lg capitalize transition-colors ${category === cat ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-200'}`}
           >
             {cat}
           </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
-        <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+        <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-zinc-400 mb-2">From</label>
+            <label className="block text-lg font-medium text-zinc-400 mb-4">From</label>
             <select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-violet-500 appearance-none"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-6 py-5 text-xl text-zinc-100 focus:outline-none focus:border-violet-500 appearance-none"
             >
               {units[category].map(u => <option key={u} value={u}>{u}</option>)}
             </select>
@@ -104,23 +104,23 @@ export function UnitConverter() {
             type="number"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-4 text-2xl font-mono focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-6 py-6 text-4xl font-mono focus:outline-none focus:border-violet-500 transition-colors"
             placeholder="0"
           />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-zinc-400 mb-2">To</label>
+            <label className="block text-lg font-medium text-zinc-400 mb-4">To</label>
             <select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-violet-500 appearance-none"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-6 py-5 text-xl text-zinc-100 focus:outline-none focus:border-violet-500 appearance-none"
             >
               {units[category].map(u => <option key={u} value={u}>{u}</option>)}
             </select>
           </div>
-          <div className="w-full bg-zinc-950/50 border border-zinc-800/50 rounded-xl px-4 py-4 text-2xl font-mono text-violet-400 min-h-[66px] flex items-center overflow-hidden">
+          <div className="w-full bg-zinc-950/50 border border-zinc-800/50 rounded-xl px-6 py-6 text-4xl font-mono text-violet-400 min-h-[96px] flex items-center overflow-hidden">
             {result || '0'}
           </div>
         </div>
