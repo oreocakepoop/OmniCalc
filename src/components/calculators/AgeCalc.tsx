@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export function AgeCalc() {
-  const [dob, setDob] = useState('');
+    const [dob, setDob] = useState('');
   
   const calculateAge = () => {
     if (!dob) return null;
@@ -32,34 +32,34 @@ export function AgeCalc() {
   const age = calculateAge();
 
   return (
-    <div className="w-full max-w-md mx-auto bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-zinc-800">
-      <div className="mb-8">
-        <label className="block text-sm font-medium text-zinc-400 mb-2">Date of Birth</label>
+    <div className="w-full max-w-6xl mx-auto glass-panel rounded-3xl p-10 sm:p-12 space-y-12">
+      <div className="max-w-xl mx-auto">
+        <label className="block text-xl font-medium text-charcoal/70 mb-4 text-center uppercase tracking-widest">Date of Birth</label>
         <input
           type="date"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
-          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-violet-500 transition-colors text-zinc-100 [color-scheme:dark]"
+          className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none text-center focus-visible:ring-charcoal`}
         />
       </div>
 
       {age ? (
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-zinc-950 rounded-2xl p-4 text-center border border-zinc-800/50">
-            <div className="text-4xl font-light font-mono text-violet-400 mb-1">{age.years}</div>
-            <div className="text-xs text-zinc-500 uppercase tracking-wider font-medium">Years</div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="bg-charcoal rounded-2xl p-10 text-center border border-charcoal/20">
+            <div className={`text-8xl font-light font-mono mb-4 text-mustard`}>{age.years}</div>
+            <div className="text-xl text-white/50 uppercase tracking-widest font-medium">Years</div>
           </div>
-          <div className="bg-zinc-950 rounded-2xl p-4 text-center border border-zinc-800/50">
-            <div className="text-4xl font-light font-mono text-violet-400 mb-1">{age.months}</div>
-            <div className="text-xs text-zinc-500 uppercase tracking-wider font-medium">Months</div>
+          <div className="bg-charcoal rounded-2xl p-10 text-center border border-charcoal/20">
+            <div className={`text-8xl font-light font-mono mb-4 text-mustard`}>{age.months}</div>
+            <div className="text-xl text-white/50 uppercase tracking-widest font-medium">Months</div>
           </div>
-          <div className="bg-zinc-950 rounded-2xl p-4 text-center border border-zinc-800/50">
-            <div className="text-4xl font-light font-mono text-violet-400 mb-1">{age.days}</div>
-            <div className="text-xs text-zinc-500 uppercase tracking-wider font-medium">Days</div>
+          <div className="bg-charcoal rounded-2xl p-10 text-center border border-charcoal/20">
+            <div className={`text-8xl font-light font-mono mb-4 text-mustard`}>{age.days}</div>
+            <div className="text-xl text-white/50 uppercase tracking-widest font-medium">Days</div>
           </div>
         </div>
       ) : (
-        <div className="h-28 flex items-center justify-center text-zinc-600 border border-dashed border-zinc-800 rounded-2xl">
+        <div className="h-64 flex items-center justify-center text-charcoal/50 text-2xl border-4 border-dashed border-charcoal/20 rounded-3xl uppercase tracking-widest font-bold">
           Select your date of birth
         </div>
       )}

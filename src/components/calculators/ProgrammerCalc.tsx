@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
 
 export function ProgrammerCalc() {
-  const { themeClasses } = useTheme();
-  const [value, setValue] = useState<bigint>(0n);
+    const [value, setValue] = useState<bigint>(0n);
   const [mode, setMode] = useState<'HEX' | 'DEC' | 'OCT' | 'BIN'>('DEC');
 
   const handleInput = (str: string) => {
@@ -47,12 +45,12 @@ export function ProgrammerCalc() {
           <div 
             key={b.id}
             onClick={() => setMode(b.id)}
-            className={`flex items-center p-5 rounded-xl cursor-pointer transition-all border ${mode === b.id ? themeClasses.border + ' ' + themeClasses.muted : 'border-transparent hover:bg-zinc-900/50'}`}
+            className={`flex items-center p-5 rounded-xl cursor-pointer transition-all border ${mode === b.id ? 'border-charcoal bg-charcoal text-mustard border-2 border-charcoal/20' : 'border-transparent hover:bg-yellow-400'}`}
           >
-            <div className={`w-16 text-lg font-bold tracking-wider ${mode === b.id ? themeClasses.text : 'text-zinc-500'}`}>
+            <div className={`w-16 text-lg font-bold tracking-wider ${mode === b.id ? 'text-mustard' : 'text-charcoal/50'}`}>
               {b.id}
             </div>
-            <div className={`flex-1 font-mono text-2xl truncate ${mode === b.id ? 'text-zinc-100' : 'text-zinc-400'}`}>
+            <div className={`flex-1 font-mono text-2xl truncate ${mode === b.id ? 'text-white' : 'text-charcoal/70'}`}>
               {b.val || '0'}
             </div>
           </div>
@@ -64,11 +62,11 @@ export function ProgrammerCalc() {
           type="text"
           value={currentStr()}
           onChange={(e) => handleInput(e.target.value)}
-          className={`w-full bg-zinc-950/80 border border-zinc-800 rounded-2xl px-8 py-8 text-4xl font-mono text-zinc-100 focus:outline-none ${themeClasses.ring} transition-all uppercase`}
+          className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-2xl px-8 py-8 text-4xl font-mono text-charcoal focus:outline-none focus-visible:ring-charcoal transition-all uppercase`}
           placeholder="0"
           spellCheck="false"
         />
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 text-lg font-bold text-zinc-600 uppercase tracking-widest">
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 text-lg font-bold text-charcoal/50 uppercase tracking-widest">
           {mode} INPUT
         </div>
       </div>
@@ -83,7 +81,7 @@ export function ProgrammerCalc() {
               if (op === '>>') setValue(value >> 1n);
               // AND/OR/XOR require a second operand, simplified for demo
             }}
-            className="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 py-6 rounded-xl font-mono text-xl transition-colors"
+            className="bg-transparent border border-charcoal/20 hover:bg-yellow-400 text-charcoal py-6 rounded-xl font-mono text-xl transition-colors"
           >
             {op}
           </button>

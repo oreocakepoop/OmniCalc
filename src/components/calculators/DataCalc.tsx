@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
 
 const units = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
 const multipliers = [1, 1024, 1024**2, 1024**3, 1024**4, 1024**5];
 
 export function DataCalc() {
-  const { themeClasses } = useTheme();
-  const [size, setSize] = useState('1');
+    const [size, setSize] = useState('1');
   const [fromUnit, setFromUnit] = useState(2); // MB
   const [toUnit, setToUnit] = useState(3); // GB
   
@@ -27,43 +25,49 @@ export function DataCalc() {
     return `${Math.floor(sec/3600)}h ${Math.floor((sec%3600)/60)}m`;
   };
 
+  const formatNumber = (num: number) => {
+    if (num === 0) return '0';
+    if (num < 0.000001 || num > 1000000000) return num.toExponential(4);
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 6 }).format(num);
+  };
+
   return (
-    <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
-        <h3 className="text-lg font-medium text-zinc-100">Data Conversion</h3>
-        <div className="space-y-4">
-          <div className="flex gap-4">
+    <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+        <h3 className="text-2xl font-medium text-charcoal">Data Conversion</h3>
+        <div className="space-y-6">
+          <div className="flex gap-6">
             <input type="number" value={size} onChange={(e) => setSize(e.target.value)}
-              className={`flex-1 bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-lg focus:outline-none ${themeClasses.ring}`} />
+              className={`flex-1 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
             <select value={fromUnit} onChange={(e) => setFromUnit(Number(e.target.value))}
-              className="w-24 bg-zinc-950/50 border border-zinc-800 rounded-xl px-3 text-zinc-300 focus:outline-none">
+              className="w-32 bg-white text-charcoal border border-charcoal/20 rounded-xl px-4 text-xl text-charcoal focus:outline-none">
               {units.map((u, i) => <option key={u} value={i}>{u}</option>)}
             </select>
           </div>
-          <div className="flex justify-center text-zinc-600">↓</div>
-          <div className="flex gap-4">
-            <div className={`flex-1 bg-zinc-950/30 border border-zinc-800/50 rounded-xl px-4 py-3 text-lg font-mono ${themeClasses.text} overflow-hidden`}>
-              {converted.toPrecision(6).replace(/\.0+$/, '')}
+          <div className="flex justify-center text-charcoal/50 text-2xl">↓</div>
+          <div className="flex gap-6">
+            <div className={`flex-1 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl font-mono text-mustard overflow-hidden`}>
+              {formatNumber(converted)}
             </div>
             <select value={toUnit} onChange={(e) => setToUnit(Number(e.target.value))}
-              className="w-24 bg-zinc-950/50 border border-zinc-800 rounded-xl px-3 text-zinc-300 focus:outline-none">
+              className="w-32 bg-white text-charcoal border border-charcoal/20 rounded-xl px-4 text-xl text-charcoal focus:outline-none">
               {units.map((u, i) => <option key={u} value={i}>{u}</option>)}
             </select>
           </div>
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
-        <h3 className="text-lg font-medium text-zinc-100">Transfer Time</h3>
-        <div className="space-y-4">
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+        <h3 className="text-2xl font-medium text-charcoal">Transfer Time</h3>
+        <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-zinc-400 mb-2">Network Speed (Mbps)</label>
+            <label className="block text-xl font-medium text-charcoal/70 mb-4">Network Speed (Mbps)</label>
             <input type="number" value={speed} onChange={(e) => setSpeed(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-lg focus:outline-none ${themeClasses.ring}`} />
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
           </div>
-          <div className={`mt-6 p-6 rounded-2xl border ${themeClasses.border} ${themeClasses.muted} text-center`}>
-            <div className="text-sm font-medium mb-1 opacity-80">Estimated Time</div>
-            <div className="text-3xl font-light font-mono">{formatTime(seconds)}</div>
+          <div className={`mt-8 p-10 rounded-2xl border border-charcoal bg-charcoal text-mustard border-2 border-charcoal/20 text-center`}>
+            <div className="text-xl font-medium mb-4 opacity-80">Estimated Time</div>
+            <div className="text-5xl font-light font-mono">{formatTime(seconds)}</div>
           </div>
         </div>
       </div>

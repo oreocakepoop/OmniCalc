@@ -30,7 +30,7 @@ const conversions = {
 };
 
 export function UnitConverter() {
-  const [category, setCategory] = useState<Category>('length');
+    const [category, setCategory] = useState<Category>('length');
   const [fromUnit, setFromUnit] = useState(units.length[0]);
   const [toUnit, setToUnit] = useState(units.length[1]);
   const [value, setValue] = useState('');
@@ -74,54 +74,82 @@ export function UnitConverter() {
 
   const result = convert();
 
-  return (
-    <div className="w-full max-w-4xl mx-auto bg-zinc-900 rounded-3xl p-10 sm:p-12 border border-zinc-800">
-      <div className="flex gap-3 p-2 bg-zinc-950 rounded-xl border border-zinc-800 mb-10 overflow-x-auto">
-        {(Object.keys(units) as Category[]).map(cat => (
-          <button
-            key={cat}
-            onClick={() => handleCategoryChange(cat)}
-            className={`flex-1 min-w-[120px] py-4 px-6 text-lg font-medium rounded-lg capitalize transition-colors ${category === cat ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-200'}`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+  const formatNumber = (numStr: string) => {
+    if (!numStr) return '';
+    const parts = numStr.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  };
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
-        <div className="space-y-6">
-          <div>
-            <label className="block text-lg font-medium text-zinc-400 mb-4">From</label>
+  return (
+    <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+        <div className="flex flex-wrap gap-4 mb-8">
+          {(Object.keys(units) as Category[]).map(cat => (
+            <button
+              key={cat}
+              onClick={() => handleCategoryChange(cat)}
+              className={`flex-1 min-w-[140px] py-4 px-6 text-xl font-medium rounded-lg capitalize transition-colors ${category === cat ? 'bg-charcoal' + ' text-white shadow-sm' : 'bg-transparent text-charcoal/70 hover:text-charcoal border border-charcoal/20'}`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">From</label>
+          <div className="relative">
             <select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-6 py-5 text-xl text-zinc-100 focus:outline-none focus:border-violet-500 appearance-none"
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
             >
               {units[category].map(u => <option key={u} value={u}>{u}</option>)}
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-charcoal/50">
+              <i className="fa-solid fa-chevron-down"></i>
+            </div>
           </div>
-          <input
-            type="number"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-6 py-6 text-4xl font-mono focus:outline-none focus:border-violet-500 transition-colors"
-            placeholder="0"
-          />
         </div>
+        
+        <div>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Value</label>
+          <div className="relative w-full">
+            <input
+              type="number"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl font-mono focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+              placeholder="0"
+            />
+            <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl font-mono pointer-events-none focus-visible:ring-charcoal`}>
+              {value ? formatNumber(value) : '0'}
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div className="space-y-6">
-          <div>
-            <label className="block text-lg font-medium text-zinc-400 mb-4">To</label>
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-10">
+        <div>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">To</label>
+          <div className="relative">
             <select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-6 py-5 text-xl text-zinc-100 focus:outline-none focus:border-violet-500 appearance-none"
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
             >
               {units[category].map(u => <option key={u} value={u}>{u}</option>)}
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-charcoal/50">
+              <i className="fa-solid fa-chevron-down"></i>
+            </div>
           </div>
-          <div className="w-full bg-zinc-950/50 border border-zinc-800/50 rounded-xl px-6 py-6 text-4xl font-mono text-violet-400 min-h-[96px] flex items-center overflow-hidden">
-            {result || '0'}
+        </div>
+
+        <div className="text-center mt-8">
+          <div className="text-charcoal/70 text-xl font-medium mb-4 uppercase tracking-widest">Converted Result</div>
+          <div className={`text-6xl font-light font-mono text-mustard break-words`}>
+            {result ? formatNumber(result) : '0'}
           </div>
         </div>
       </div>

@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
 
 // Mock rates
 const rates: Record<string, { rate: number, symbol: string, name: string }> = {
   USD: { rate: 1, symbol: '$', name: 'US Dollar' },
   EUR: { rate: 0.903, symbol: '€', name: 'Euro' },
+  GBP: { rate: 0.78, symbol: '£', name: 'British Pound' },
+  JPY: { rate: 150.2, symbol: '¥', name: 'Japanese Yen' },
+  CAD: { rate: 1.35, symbol: '$', name: 'Canadian Dollar' },
+  AUD: { rate: 1.52, symbol: '$', name: 'Australian Dollar' },
 };
 
 export function CurrencyCalc() {
-  const [amount, setAmount] = useState('100');
+    const [amount, setAmount] = useState('100');
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
 
@@ -16,80 +19,93 @@ export function CurrencyCalc() {
   const inUSD = val / rates[from].rate;
   const result = inUSD * rates[to].rate;
 
-  const handleNum = (num: string) => {
-    setAmount(prev => prev === '0' && num !== '.' ? num : prev + num);
-  };
-
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 }).format(num);
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto flex flex-col bg-[#16171a] rounded-3xl border border-zinc-800 overflow-hidden shadow-2xl h-[800px]">
-      {/* Display Area */}
-      <div className="p-12 space-y-10 flex-1 flex flex-col justify-center">
+    <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
         <div>
-          <div className="text-slate-400 text-xl mb-4">
-            {rates[from].name}, {rates[from].symbol}1 = {rates[to].symbol}{(rates[to].rate / rates[from].rate).toFixed(3)}
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="text-white text-7xl font-semibold tracking-tight">
-              {rates[from].symbol}{formatNumber(val)}
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">From Currency</label>
+          <div className="relative">
+            <select
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
+            >
+              {Object.keys(rates).map(key => (
+                <option key={key} value={key}>{key} - {rates[key].name}</option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-charcoal/50">
+              <i className="fa-solid fa-chevron-down"></i>
             </div>
-            <i className="fa-solid fa-chevron-down text-[#20c976] text-3xl"></i>
           </div>
         </div>
-        
-        <div className="h-[2px] bg-[#222429] w-full my-6"></div>
-        
+
         <div>
-          <div className="text-slate-400 text-xl mb-4">
-            {rates[to].name}, {rates[to].symbol}1 = {rates[from].symbol}{(rates[from].rate / rates[to].rate).toFixed(3)}
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="text-white text-7xl font-semibold tracking-tight">
-              {rates[to].symbol}{formatNumber(result)}
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Amount</label>
+          <div className="relative">
+            <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">{rates[from].symbol}</span>
+            <div className="relative w-full">
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+                placeholder="0"
+              />
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+                {amount ? formatNumber(parseFloat(amount)) : '0'}
+              </div>
             </div>
-            <i className="fa-solid fa-chevron-down text-[#20c976] text-3xl"></i>
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">To Currency</label>
+          <div className="relative">
+            <select
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
+            >
+              {Object.keys(rates).map(key => (
+                <option key={key} value={key}>{key} - {rates[key].name}</option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-charcoal/50">
+              <i className="fa-solid fa-chevron-down"></i>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Keypad */}
-      <div className="mt-auto grid grid-cols-3 gap-[2px] bg-[#222429] p-[2px]">
-        <Key icon="fa-solid fa-clock-rotate-left" color="#20c976" />
-        <Key icon="fa-solid fa-arrows-rotate" color="#20c976" onClick={() => { setFrom(to); setTo(from); }} />
-        <Key text="C" color="#20c976" onClick={() => setAmount('0')} />
-        
-        <Key text="1" onClick={() => handleNum('1')} />
-        <Key text="2" onClick={() => handleNum('2')} />
-        <Key text="3" onClick={() => handleNum('3')} />
-        
-        <Key text="4" onClick={() => handleNum('4')} />
-        <Key text="5" onClick={() => handleNum('5')} />
-        <Key text="6" onClick={() => handleNum('6')} />
-        
-        <Key text="7" onClick={() => handleNum('7')} />
-        <Key text="8" onClick={() => handleNum('8')} />
-        <Key text="9" onClick={() => handleNum('9')} />
-        
-        <Key text="," onClick={() => handleNum('.')} />
-        <Key text="0" onClick={() => handleNum('0')} />
-        <Key icon="fa-solid fa-arrow-turn-down fa-rotate-90" color="#20c976" />
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-10">
+        <div className="text-center mb-6">
+          <div className="text-charcoal/70 text-xl font-medium mb-4 uppercase tracking-widest">Converted Amount</div>
+          <div className={`text-6xl font-light font-mono text-mustard break-words`}>
+            {rates[to].symbol}{formatNumber(result)}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+            <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">{from} to {to}</div>
+            <div className="text-2xl font-mono text-charcoal">
+              {(rates[to].rate / rates[from].rate).toFixed(4)}
+            </div>
+          </div>
+          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+            <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">{to} to {from}</div>
+            <div className="text-2xl font-mono text-charcoal">
+              {(rates[from].rate / rates[to].rate).toFixed(4)}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function Key({ text, icon, color = 'white', onClick }: any) {
-  return (
-    <motion.button
-      whileTap={{ scale: 0.95, backgroundColor: '#2a2d35' }}
-      onClick={onClick}
-      className="calc-key h-32 col-span-1 text-4xl bg-[#16171a] hover:bg-[#2a2d35] transition-colors flex items-center justify-center font-medium"
-      style={{ color }}
-    >
-      {icon ? <i className={icon}></i> : text}
-    </motion.button>
-  );
-}

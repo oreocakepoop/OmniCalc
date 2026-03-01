@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
 
 export function SalaryCalc() {
-  const { themeClasses } = useTheme();
-  const [hourly, setHourly] = useState('25');
+    const [hourly, setHourly] = useState('25');
   const [hoursPerWeek, setHoursPerWeek] = useState('40');
 
   const h = parseFloat(hourly) || 0;
@@ -23,30 +21,43 @@ export function SalaryCalc() {
     if (type === 'yearly') setHourly(String(v / 52 / hpw));
   };
 
-  const format = (num: number) => num > 0 ? num.toFixed(2) : '';
+  const format = (num: number) => {
+    if (num <= 0) return '';
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2, useGrouping: false }).format(num);
+  };
+
+  const formatDisplay = (num: number) => {
+    if (num <= 0) return '';
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(num);
+  };
 
   return (
-    <div className="w-full max-w-4xl mx-auto glass-panel rounded-3xl p-6 sm:p-8">
-      <div className="mb-8 p-4 bg-zinc-950/50 border border-zinc-800 rounded-2xl flex items-center justify-between max-w-sm mx-auto">
-        <span className="text-sm font-medium text-zinc-400">Hours per week</span>
+    <div className="w-full max-w-6xl mx-auto glass-panel rounded-3xl p-10 sm:p-12">
+      <div className="mb-12 p-6 bg-transparent border border-charcoal/20 rounded-2xl flex items-center justify-between max-w-lg mx-auto">
+        <span className="text-xl font-medium text-charcoal/70 uppercase tracking-widest">Hours per week</span>
         <input type="number" value={hoursPerWeek} onChange={(e) => setHoursPerWeek(e.target.value)}
-          className={`w-24 bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-1.5 text-center focus:outline-none ${themeClasses.ring}`} />
+          className={`w-32 bg-white text-charcoal border border-charcoal/20 rounded-lg px-4 py-3 text-2xl text-center focus:outline-none focus-visible:ring-charcoal`} />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
-          { label: 'Hourly', val: format(h), type: 'hourly' },
-          { label: 'Daily', val: format(daily), type: 'daily' },
-          { label: 'Weekly', val: format(weekly), type: 'weekly' },
-          { label: 'Monthly', val: format(monthly), type: 'monthly' },
-          { label: 'Yearly', val: format(yearly), type: 'yearly' },
+          { label: 'Hourly', val: format(h), displayVal: formatDisplay(h), type: 'hourly' },
+          { label: 'Daily', val: format(daily), displayVal: formatDisplay(daily), type: 'daily' },
+          { label: 'Weekly', val: format(weekly), displayVal: formatDisplay(weekly), type: 'weekly' },
+          { label: 'Monthly', val: format(monthly), displayVal: formatDisplay(monthly), type: 'monthly' },
+          { label: 'Yearly', val: format(yearly), displayVal: formatDisplay(yearly), type: 'yearly' },
         ].map((item) => (
-          <div key={item.label} className={`relative bg-zinc-950/50 border border-zinc-800 rounded-2xl p-5 transition-all focus-within:border-zinc-600 ${item.type === 'yearly' ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
-            <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-widest">{item.label}</label>
+          <div key={item.label} className={`relative bg-white border border-charcoal/20 rounded-2xl p-8 transition-all focus-within:border-charcoal ${item.type === 'yearly' ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
+            <label className="block text-lg font-bold text-charcoal/50 mb-4 uppercase tracking-widest">{item.label}</label>
             <div className="flex items-center">
-              <span className={`text-xl ${themeClasses.text} opacity-70 mr-2`}>$</span>
-              <input type="number" value={item.val} onChange={(e) => handleUpdate(e.target.value, item.type as any)}
-                className="w-full bg-transparent text-2xl font-mono text-zinc-100 focus:outline-none" placeholder="0.00" />
+              <span className={`text-4xl text-mustard opacity-70 mr-4`}>$</span>
+              <div className="relative w-full">
+                <input type="number" value={item.val} onChange={(e) => handleUpdate(e.target.value, item.type as any)}
+                  className="w-full bg-white text-charcoal text-5xl font-mono text-charcoal focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text" placeholder="0.00" />
+                <div className="w-full bg-white text-charcoal text-5xl font-mono text-charcoal pointer-events-none">
+                  {item.displayVal || '0.00'}
+                </div>
+              </div>
             </div>
           </div>
         ))}

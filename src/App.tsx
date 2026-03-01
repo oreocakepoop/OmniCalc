@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext, useContext, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CalculatorId } from './types';
-import { ThemeProvider } from './ThemeContext';
 
 // Calculators
 import { StandardCalc } from './components/calculators/StandardCalc';
@@ -174,7 +173,7 @@ function AppContent() {
 
   return (
     <ToastContext.Provider value={{ showToast }}>
-      <div className="min-h-screen w-full bg-sage-bg text-charcoal font-sans flex flex-col selection:bg-mustard selection:text-charcoal overflow-x-hidden">
+      <div className="min-h-screen w-full bg-white text-charcoal font-sans flex flex-col selection:bg-mustard selection:text-charcoal overflow-x-hidden">
         
         {/* QOL: Toast Notification */}
         <AnimatePresence>
@@ -206,10 +205,10 @@ function AppContent() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="w-full max-w-5xl bg-sage-light border-4 border-charcoal shadow-[0_30px_60px_rgba(0,0,0,0.4)] flex flex-col max-h-[80vh] overflow-hidden"
+                className="w-full max-w-5xl bg-white border-4 border-charcoal shadow-[0_30px_60px_rgba(0,0,0,0.4)] flex flex-col max-h-[80vh] overflow-hidden"
                 onClick={e => e.stopPropagation()}
               >
-                <div className="p-6 border-b-4 border-charcoal bg-sage-mid flex items-center gap-4">
+                <div className="p-6 border-b-4 border-charcoal bg-yellow-400 flex items-center gap-4">
                   <i className="fa-solid fa-magnifying-glass text-3xl text-charcoal opacity-50"></i>
                   <input
                     ref={searchInputRef}
@@ -229,7 +228,7 @@ function AppContent() {
                     <button
                       key={calc.id}
                       onClick={() => handleSelectCalc(calc.id as CalculatorId)}
-                      className={`flex items-center gap-4 p-6 border-4 text-left transition-all ${activeId === calc.id ? 'bg-charcoal border-charcoal text-mustard scale-[1.02] shadow-xl' : 'bg-sage-bg border-charcoal/20 text-charcoal hover:border-charcoal hover:bg-mustard hover:scale-[1.02] hover:shadow-xl'}`}
+                      className={`flex items-center gap-4 p-6 border-4 text-left transition-all ${activeId === calc.id ? 'bg-charcoal border-charcoal text-mustard scale-[1.02] shadow-xl' : 'bg-white border-charcoal/20 text-charcoal hover:border-charcoal hover:bg-mustard hover:scale-[1.02] hover:shadow-xl'}`}
                     >
                       <div className={`w-16 h-16 flex items-center justify-center text-3xl shrink-0 ${activeId === calc.id ? 'bg-mustard text-charcoal' : 'bg-charcoal text-mustard'}`}>
                         <i className={calc.icon}></i>
@@ -252,14 +251,14 @@ function AppContent() {
         </AnimatePresence>
 
         {/* Top Navigation Bar - Spacious and Clean */}
-        <header className="w-full px-6 py-6 lg:px-12 lg:py-8 flex items-center justify-between border-b-4 border-charcoal/10 bg-sage-bg z-10">
+        <header className="w-full px-6 py-6 lg:px-12 lg:py-8 flex items-center justify-between border-b-4 border-charcoal/10 bg-white z-10">
           <div className="flex items-center gap-6">
             <div className="w-16 h-16 bg-charcoal text-mustard flex items-center justify-center shadow-[4px_4px_0px_rgba(42,47,37,1)] border-2 border-charcoal">
               <i className="fa-solid fa-calculator text-3xl"></i>
             </div>
             <div>
               <h1 className="font-display text-3xl lg:text-4xl font-black text-charcoal uppercase tracking-widest leading-none">OmniCalc</h1>
-              <p className="text-sage-darker font-bold tracking-widest text-sm uppercase mt-1">Pro Suite</p>
+              <p className="text-charcoal/70 font-bold tracking-widest text-sm uppercase mt-1">Pro Suite</p>
             </div>
           </div>
 
@@ -267,7 +266,7 @@ function AppContent() {
             {/* Command Palette Trigger */}
             <button 
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="hidden md:flex items-center gap-4 bg-sage-light border-4 border-charcoal px-6 py-3 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="hidden md:flex items-center gap-4 bg-white border-4 border-charcoal px-6 py-3 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
             >
               <i className="fa-solid fa-magnifying-glass text-xl"></i>
               <span className="font-display font-black uppercase tracking-widest">Search Tools</span>
@@ -277,7 +276,7 @@ function AppContent() {
             {/* Mobile Search Icon */}
             <button 
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="md:hidden w-14 h-14 flex items-center justify-center bg-sage-light border-4 border-charcoal hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="md:hidden w-14 h-14 flex items-center justify-center bg-white border-4 border-charcoal hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
             >
               <i className="fa-solid fa-magnifying-glass text-xl"></i>
             </button>
@@ -286,7 +285,7 @@ function AppContent() {
             <button 
               onClick={handleGlobalReset}
               title="Reset Calculator"
-              className="w-14 h-14 flex items-center justify-center bg-sage-light border-4 border-charcoal hover:bg-rose-500 hover:text-white transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="w-14 h-14 flex items-center justify-center bg-white border-4 border-charcoal hover:bg-charcoal hover:text-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
             >
               <i className="fa-solid fa-rotate-right text-xl"></i>
             </button>
@@ -321,7 +320,7 @@ function AppContent() {
             <h2 className="font-display text-5xl lg:text-7xl font-black text-charcoal uppercase tracking-tighter leading-none mb-4">
               {activeCalc?.name}
             </h2>
-            <p className="text-xl lg:text-2xl text-sage-darker font-medium max-w-2xl mx-auto">
+            <p className="text-xl lg:text-2xl text-charcoal/70 font-medium max-w-2xl mx-auto">
               {activeCalc?.description}
             </p>
           </div>
@@ -342,6 +341,32 @@ function AppContent() {
             </AnimatePresence>
           </div>
 
+          {/* Navigation Buttons */}
+          <div className="w-full max-w-6xl mt-12 flex items-center justify-between border-t-4 border-charcoal/10 pt-8">
+            <button
+              onClick={() => {
+                const currentIndex = calculators.findIndex(c => c.id === activeId);
+                const prevIndex = (currentIndex - 1 + calculators.length) % calculators.length;
+                handleSelectCalc(calculators[prevIndex].id as CalculatorId);
+              }}
+              className="flex items-center gap-4 bg-white border-4 border-charcoal px-6 py-4 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+            >
+              <i className="fa-solid fa-arrow-left text-xl"></i>
+              <span className="font-display font-black uppercase tracking-widest hidden sm:inline">Previous</span>
+            </button>
+            <button
+              onClick={() => {
+                const currentIndex = calculators.findIndex(c => c.id === activeId);
+                const nextIndex = (currentIndex + 1) % calculators.length;
+                handleSelectCalc(calculators[nextIndex].id as CalculatorId);
+              }}
+              className="flex items-center gap-4 bg-white border-4 border-charcoal px-6 py-4 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+            >
+              <span className="font-display font-black uppercase tracking-widest hidden sm:inline">Next</span>
+              <i className="fa-solid fa-arrow-right text-xl"></i>
+            </button>
+          </div>
+
         </main>
       </div>
     </ToastContext.Provider>
@@ -350,8 +375,6 @@ function AppContent() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <AppContent />
   );
 }

@@ -66,7 +66,7 @@ export function MortgageCalc() {
       <div className="flex flex-col">
         
         {/* Principal */}
-        <div className="bg-sage-mid p-8 flex items-center justify-between border-b border-charcoal/10">
+        <div className="bg-yellow-400 p-8 flex items-center justify-between border-b border-charcoal/10">
           <label className="text-charcoal font-display font-semibold uppercase tracking-widest text-lg">Loan Amount</label>
           <div className="relative w-1/2">
             <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 font-bold text-2xl">$</span>
@@ -74,37 +74,37 @@ export function MortgageCalc() {
               type="number" 
               value={principal} 
               onChange={(e) => setPrincipal(e.target.value)}
-              className="w-full bg-transparent text-right text-4xl font-display font-bold text-charcoal placeholder-charcoal/30 focus:outline-none pl-12"
+              className="w-full bg-white text-charcoal text-right text-4xl font-display font-bold placeholder-charcoal/30 focus:outline-none pl-12"
               placeholder="0"
             />
           </div>
         </div>
 
         {/* Interest Rate */}
-        <div className="bg-sage-dark p-8 flex items-center justify-between border-b border-charcoal/10">
-          <label className="text-offwhite font-display font-semibold uppercase tracking-widest text-lg">Interest Rate</label>
+        <div className="bg-mustard p-8 flex items-center justify-between border-b border-charcoal/10">
+          <label className="text-charcoal font-display font-semibold uppercase tracking-widest text-lg">Interest Rate</label>
           <div className="relative w-1/2">
-            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-offwhite/50 font-bold text-2xl">%</span>
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-charcoal/50 font-bold text-2xl">%</span>
             <input 
               type="number" 
               value={rate} 
               onChange={(e) => setRate(e.target.value)}
-              className="w-full bg-transparent text-right pr-14 text-4xl font-display font-bold text-offwhite placeholder-offwhite/30 focus:outline-none"
+              className="w-full bg-white text-charcoal text-right pr-14 text-4xl font-display font-bold placeholder-charcoal/30 focus:outline-none"
               placeholder="0.0"
             />
           </div>
         </div>
 
         {/* Loan Term */}
-        <div className="bg-sage-darker p-8 flex items-center justify-between border-b border-charcoal/10">
-          <label className="text-offwhite font-display font-semibold uppercase tracking-widest text-lg">Loan Term</label>
+        <div className="bg-charcoal p-8 flex items-center justify-between border-b border-charcoal/10">
+          <label className="text-white font-display font-semibold uppercase tracking-widest text-lg">Loan Term</label>
           <div className="relative w-1/2">
-            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-offwhite/50 font-bold text-lg">YRS</span>
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-charcoal/50 font-bold text-lg z-10">YRS</span>
             <input 
               type="number" 
               value={years} 
               onChange={(e) => setYears(e.target.value)}
-              className="w-full bg-transparent text-right pr-20 text-4xl font-display font-bold text-offwhite placeholder-offwhite/30 focus:outline-none"
+              className="w-full bg-white text-charcoal text-right pr-20 text-4xl font-display font-bold placeholder-charcoal/30 focus:outline-none"
               placeholder="0"
             />
           </div>
@@ -113,20 +113,20 @@ export function MortgageCalc() {
         {/* Details */}
         <div className="bg-charcoal p-8 flex flex-col gap-4">
           <div className="flex justify-between text-lg">
-            <span className="text-offwhite/50 font-display uppercase tracking-widest">Total Interest</span>
+            <span className="text-white/50 font-display uppercase tracking-widest">Total Interest</span>
             <span className="text-mustard font-display font-bold">{totalInterest > 0 ? formatCurrency(totalInterest) : '$0.00'}</span>
           </div>
           <div className="flex justify-between text-lg">
-            <span className="text-offwhite/50 font-display uppercase tracking-widest">Total Cost</span>
+            <span className="text-white/50 font-display uppercase tracking-widest">Total Cost</span>
             <span className="text-mustard font-display font-bold">{totalPayment > 0 ? formatCurrency(totalPayment) : '$0.00'}</span>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="bg-charcoal p-6 flex justify-center border-t border-offwhite/10">
+        <div className="bg-charcoal p-6 flex justify-center border-t border-white/10">
           <button 
             onClick={handleReset}
-            className="text-offwhite/50 font-display font-bold uppercase tracking-widest text-sm hover:text-offwhite transition-colors active:scale-95"
+            className="text-white/50 font-display font-bold uppercase tracking-widest text-sm hover:text-white transition-colors active:scale-95"
           >
             Reset Values
           </button>

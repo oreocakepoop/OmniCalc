@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
 
 export function TimeMathCalc() {
-  const { themeClasses } = useTheme();
-  const [time, setTime] = useState('12:00');
+    const [time, setTime] = useState('12:00');
   const [addHours, setAddHours] = useState('0');
   const [addMins, setAddMins] = useState('45');
   const [operation, setOperation] = useState<'add' | 'sub'>('add');
@@ -28,42 +26,42 @@ export function TimeMathCalc() {
   const result = calculateTime();
 
   return (
-    <div className="w-full max-w-3xl mx-auto glass-panel rounded-3xl p-10 sm:p-12">
-      <div className="space-y-8">
+    <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
         <div>
-          <label className="block text-xl font-medium text-zinc-400 mb-4">Base Time</label>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Base Time</label>
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)}
-            className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-6 py-5 text-4xl font-mono text-center focus:outline-none ${themeClasses.ring} text-zinc-100 [color-scheme:dark]`} />
+            className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-4xl font-mono text-center focus:outline-none focus-visible:ring-charcoal text-charcoal [color-scheme:dark]`} />
         </div>
 
-        <div className="flex bg-zinc-950/50 rounded-xl p-2 border border-zinc-800">
+        <div className="flex bg-transparent rounded-xl p-2 border border-charcoal/20">
           <button onClick={() => setOperation('add')}
-            className={`flex-1 py-4 text-xl font-medium rounded-lg transition-colors ${operation === 'add' ? themeClasses.bg + ' text-white' : 'text-zinc-400 hover:text-zinc-200'}`}>
+            className={`flex-1 py-4 text-xl font-medium rounded-lg transition-colors border border-transparent hover:border-charcoal ${operation === 'add' ? 'bg-charcoal' + ' text-white shadow-sm' : 'text-charcoal/70 hover:text-charcoal'}`}>
             Add
           </button>
           <button onClick={() => setOperation('sub')}
-            className={`flex-1 py-4 text-xl font-medium rounded-lg transition-colors ${operation === 'sub' ? themeClasses.bg + ' text-white' : 'text-zinc-400 hover:text-zinc-200'}`}>
+            className={`flex-1 py-4 text-xl font-medium rounded-lg transition-colors border border-transparent hover:border-charcoal ${operation === 'sub' ? 'bg-charcoal' + ' text-white shadow-sm' : 'text-charcoal/70 hover:text-charcoal'}`}>
             Subtract
           </button>
         </div>
 
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <label className="block text-lg font-medium text-zinc-500 mb-4 uppercase tracking-wider text-center">Hours</label>
+            <label className="block text-lg font-medium text-charcoal/50 mb-4 uppercase tracking-wider text-center">Hours</label>
             <input type="number" value={addHours} onChange={(e) => setAddHours(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-6 py-5 text-3xl text-center focus:outline-none ${themeClasses.ring}`} placeholder="0" />
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-3xl text-center focus:outline-none focus-visible:ring-charcoal`} placeholder="0" />
           </div>
           <div>
-            <label className="block text-lg font-medium text-zinc-500 mb-4 uppercase tracking-wider text-center">Minutes</label>
+            <label className="block text-lg font-medium text-charcoal/50 mb-4 uppercase tracking-wider text-center">Minutes</label>
             <input type="number" value={addMins} onChange={(e) => setAddMins(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-6 py-5 text-3xl text-center focus:outline-none ${themeClasses.ring}`} placeholder="0" />
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-3xl text-center focus:outline-none focus-visible:ring-charcoal`} placeholder="0" />
           </div>
         </div>
+      </div>
 
-        <div className={`mt-12 p-10 rounded-2xl border ${themeClasses.border} ${themeClasses.muted} text-center`}>
-          <div className="text-xl font-medium mb-4 opacity-80">Resulting Time</div>
-          <div className="text-7xl font-light font-mono">{result || '--:--'}</div>
-        </div>
+      <div className="bg-charcoal rounded-3xl p-10 sm:p-12 flex flex-col justify-center text-center space-y-8 border-4 border-charcoal shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
+        <div className="text-xl font-medium mb-4 text-white/50 uppercase tracking-widest">Resulting Time</div>
+        <div className={`text-8xl sm:text-9xl font-light font-mono text-mustard`}>{result || '--:--'}</div>
       </div>
     </div>
   );

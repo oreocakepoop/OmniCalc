@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
 
 export function ROICalc() {
-  const { themeClasses } = useTheme();
-  const [invested, setInvested] = useState('10000');
+    const [invested, setInvested] = useState('10000');
   const [returned, setReturned] = useState('12500');
   const [years, setYears] = useState('2');
 
@@ -15,51 +13,59 @@ export function ROICalc() {
   const roi = inv > 0 ? (profit / inv) * 100 : 0;
   const annualized = (inv > 0 && y > 0) ? (Math.pow(ret / inv, 1 / y) - 1) * 100 : 0;
 
+  const formatCurrency = (num: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
+  };
+
+  const formatPercent = (num: number) => {
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(num) + '%';
+  };
+
   return (
-    <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+    <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
         <div>
-          <label className="block text-sm font-medium text-zinc-400 mb-2">Amount Invested</label>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Amount Invested</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+            <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">$</span>
             <input type="number" value={invested} onChange={(e) => setInvested(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl pl-8 pr-4 py-3 text-lg focus:outline-none ${themeClasses.ring}`} />
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-400 mb-2">Amount Returned</label>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Amount Returned</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+            <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">$</span>
             <input type="number" value={returned} onChange={(e) => setReturned(e.target.value)}
-              className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl pl-8 pr-4 py-3 text-lg focus:outline-none ${themeClasses.ring}`} />
+              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-400 mb-2">Investment Length (Years)</label>
+          <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Investment Length (Years)</label>
           <input type="number" value={years} onChange={(e) => setYears(e.target.value)}
-            className={`w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-lg focus:outline-none ${themeClasses.ring}`} />
+            className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-center space-y-6">
-        <div className="text-center mb-4">
-          <div className="text-zinc-400 text-sm font-medium mb-2 uppercase tracking-widest">Return on Investment</div>
-          <div className={`text-6xl font-light font-mono ${roi >= 0 ? themeClasses.text : 'text-red-400'}`}>
-            {roi > 0 ? '+' : ''}{roi.toFixed(2)}%
+      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-10">
+        <div className="text-center mb-6">
+          <div className="text-charcoal/70 text-xl font-medium mb-4 uppercase tracking-widest">Return on Investment</div>
+          <div className={`text-8xl font-light font-mono ${roi >= 0 ? 'text-mustard' : 'text-red-400'}`}>
+            {roi > 0 ? '+' : ''}{formatPercent(roi)}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-zinc-950/50 rounded-2xl p-4 border border-zinc-800/50 text-center">
-            <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Net Profit</div>
-            <div className={`text-xl font-mono ${profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-              ${Math.abs(profit).toFixed(2)}
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+            <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">Net Profit</div>
+            <div className={`text-3xl font-mono ${profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+              {profit >= 0 ? '+' : '-'}{formatCurrency(Math.abs(profit))}
             </div>
           </div>
-          <div className="bg-zinc-950/50 rounded-2xl p-4 border border-zinc-800/50 text-center">
-            <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Annualized ROI</div>
-            <div className={`text-xl font-mono ${annualized >= 0 ? themeClasses.text : 'text-red-400'}`}>
-              {annualized.toFixed(2)}%
+          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+            <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">Annualized ROI</div>
+            <div className={`text-3xl font-mono ${annualized >= 0 ? 'text-mustard' : 'text-red-400'}`}>
+              {formatPercent(annualized)}
             </div>
           </div>
         </div>

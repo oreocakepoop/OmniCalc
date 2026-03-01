@@ -99,25 +99,25 @@ export function StandardCalc() {
       {/* Keypad Blocks */}
       <div className="flex flex-col">
         {/* Row 1 */}
-        <div className="grid grid-cols-4 bg-sage-mid">
+        <div className="grid grid-cols-4 bg-yellow-400">
           {['7', '8', '9', '+'].map((btn) => (
-            <button key={btn} onClick={() => btn === '+' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-charcoal hover:bg-sage-light transition-colors active:scale-95">
+            <button key={btn} onClick={() => btn === '+' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-charcoal hover:bg-white transition-colors active:scale-95">
               {btn}
             </button>
           ))}
         </div>
         {/* Row 2 */}
-        <div className="grid grid-cols-4 bg-sage-dark">
+        <div className="grid grid-cols-4 bg-mustard">
           {['4', '5', '6', '-'].map((btn) => (
-            <button key={btn} onClick={() => btn === '-' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-offwhite hover:bg-sage-mid transition-colors active:scale-95">
+            <button key={btn} onClick={() => btn === '-' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-charcoal hover:bg-yellow-400 transition-colors active:scale-95">
               {btn}
             </button>
           ))}
         </div>
         {/* Row 3 */}
-        <div className="grid grid-cols-4 bg-sage-darker">
+        <div className="grid grid-cols-4 bg-charcoal">
           {['1', '2', '3', 'x'].map((btn) => (
-            <button key={btn} onClick={() => btn === 'x' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-offwhite hover:bg-sage-dark transition-colors active:scale-95">
+            <button key={btn} onClick={() => btn === 'x' ? handleOp(btn) : handleNum(btn)} className="h-32 text-5xl font-display font-medium text-mustard hover:bg-mustard transition-colors active:scale-95">
               {btn}
             </button>
           ))}
@@ -130,7 +130,7 @@ export function StandardCalc() {
               else if (btn === '=') calculate();
               else if (btn === '÷') handleOp(btn);
               else handleNum(btn);
-            }} className={`h-32 text-5xl font-display font-medium transition-colors active:scale-95 ${btn === '=' || btn === 'C' ? 'text-mustard hover:text-mustard-hover' : 'text-offwhite hover:text-sage-light'}`}>
+            }} className={`h-32 text-5xl font-display font-medium transition-colors active:scale-95 ${btn === '=' || btn === 'C' ? 'text-mustard hover:text-yellow-400' : 'text-white hover:text-mustard'}`}>
               {btn}
             </button>
           ))}

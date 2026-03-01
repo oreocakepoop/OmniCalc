@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useTheme } from '../../ThemeContext';
 
 export function ProportionCalc() {
-  const { themeClasses } = useTheme();
-  const [a, setA] = useState('2');
+    const [a, setA] = useState('2');
   const [b, setB] = useState('4');
   const [c, setC] = useState('6');
 
@@ -11,34 +9,40 @@ export function ProportionCalc() {
   const valB = parseFloat(b);
   const valC = parseFloat(c);
 
+  const formatNumber = (num: number) => {
+    if (num === 0) return '0';
+    if (Math.abs(num) < 0.0001 || Math.abs(num) > 1000000000) return num.toExponential(4);
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(num);
+  };
+
   let result = '...';
   if (!isNaN(valA) && !isNaN(valB) && !isNaN(valC) && valA !== 0) {
-    result = ((valB * valC) / valA).toPrecision(4).replace(/\.0+$/, '');
+    result = formatNumber((valB * valC) / valA);
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto glass-panel rounded-3xl p-6 sm:p-12">
-      <div className="text-center mb-12">
-        <h3 className="text-xl font-medium text-zinc-200">Rule of Three</h3>
-        <p className="text-zinc-500 text-sm mt-2">A is to B as C is to X</p>
+    <div className="w-full max-w-4xl mx-auto glass-panel rounded-3xl p-10 sm:p-16">
+      <div className="text-center mb-16">
+        <h3 className="text-3xl font-medium text-charcoal">Rule of Three</h3>
+        <p className="text-charcoal/50 text-xl mt-4">A is to B as C is to X</p>
       </div>
 
-      <div className="flex items-center justify-center gap-4 sm:gap-8 text-2xl font-mono">
-        <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-center gap-8 sm:gap-12 text-4xl font-mono">
+        <div className="flex flex-col gap-6">
           <input type="number" value={a} onChange={(e) => setA(e.target.value)}
-            className={`w-24 sm:w-32 bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-center focus:outline-none ${themeClasses.ring}`} placeholder="A" />
-          <div className="h-px bg-zinc-700 w-full"></div>
+            className={`w-32 sm:w-48 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-center focus:outline-none focus-visible:ring-charcoal`} placeholder="A" />
+          <div className="h-1 bg-charcoal/20 w-full rounded-full"></div>
           <input type="number" value={b} onChange={(e) => setB(e.target.value)}
-            className={`w-24 sm:w-32 bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-center focus:outline-none ${themeClasses.ring}`} placeholder="B" />
+            className={`w-32 sm:w-48 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-center focus:outline-none focus-visible:ring-charcoal`} placeholder="B" />
         </div>
 
-        <div className="text-zinc-500">=</div>
+        <div className="text-charcoal/50 text-5xl">=</div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           <input type="number" value={c} onChange={(e) => setC(e.target.value)}
-            className={`w-24 sm:w-32 bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-center focus:outline-none ${themeClasses.ring}`} placeholder="C" />
-          <div className="h-px bg-zinc-700 w-full"></div>
-          <div className={`w-24 sm:w-32 bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-center ${themeClasses.text}`}>
+            className={`w-32 sm:w-48 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-center focus:outline-none focus-visible:ring-charcoal`} placeholder="C" />
+          <div className="h-1 bg-charcoal/20 w-full rounded-full"></div>
+          <div className={`w-32 sm:w-48 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-center min-h-[88px] flex items-center justify-center text-mustard`}>
             {result}
           </div>
         </div>
