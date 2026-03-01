@@ -32,11 +32,11 @@ export function SalaryCalc() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto glass-panel rounded-3xl p-10 sm:p-12">
-      <div className="mb-12 p-6 bg-transparent border border-charcoal/20 rounded-2xl flex items-center justify-between max-w-lg mx-auto">
+    <div className="w-full max-w-6xl mx-auto glass-panel  p-10 sm:p-12">
+      <div className="mb-12 p-6 bg-transparent border border-charcoal/20  flex items-center justify-between max-w-lg mx-auto">
         <span className="text-xl font-medium text-charcoal/70 uppercase tracking-widest">Hours per week</span>
         <input type="number" value={hoursPerWeek} onChange={(e) => setHoursPerWeek(e.target.value)}
-          className={`w-32 bg-white text-charcoal border border-charcoal/20 rounded-lg px-4 py-3 text-2xl text-center focus:outline-none focus-visible:ring-charcoal`} />
+          className={`w-32 bg-white text-charcoal border border-charcoal/20  px-4 py-3 text-2xl text-center focus:outline-none focus-visible:ring-charcoal`} />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -47,7 +47,7 @@ export function SalaryCalc() {
           { label: 'Monthly', val: format(monthly), displayVal: formatDisplay(monthly), type: 'monthly' },
           { label: 'Yearly', val: format(yearly), displayVal: formatDisplay(yearly), type: 'yearly' },
         ].map((item) => (
-          <div key={item.label} className={`relative bg-white border border-charcoal/20 rounded-2xl p-8 transition-all focus-within:border-charcoal ${item.type === 'yearly' ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
+          <div key={item.label} className={`relative bg-white border border-charcoal/20  p-8 transition-all focus-within:border-charcoal ${item.type === 'yearly' ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
             <label className="block text-lg font-bold text-charcoal/50 mb-4 uppercase tracking-widest">{item.label}</label>
             <div className="flex items-center">
               <span className={`text-4xl text-mustard opacity-70 mr-4`}>$</span>

@@ -19,7 +19,7 @@ export function TipCalc() {
 
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4">Bill Amount</label>
           <div className="relative">
@@ -28,7 +28,7 @@ export function TipCalc() {
               type="number"
               value={bill}
               onChange={(e) => setBill(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`}
+              className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`}
               placeholder="0.00"
             />
           </div>
@@ -53,7 +53,7 @@ export function TipCalc() {
               <button
                 key={pct}
                 onClick={() => setTipPercent(String(pct))}
-                className={`flex-1 py-4 rounded-lg text-lg font-medium transition-colors border border-transparent hover:border-charcoal ${tipPercent === String(pct) ? 'bg-charcoal' + ' text-white shadow-sm' : 'bg-transparent text-charcoal/70 hover:text-charcoal border-charcoal/20'}`}
+                className={`flex-1 py-4  text-lg font-medium transition-colors border border-transparent hover:border-charcoal ${tipPercent === String(pct) ? 'bg-charcoal' + ' text-white shadow-sm' : 'bg-transparent text-charcoal/70 hover:text-charcoal border-charcoal/20'}`}
               >
                 {pct}%
               </button>
@@ -66,24 +66,24 @@ export function TipCalc() {
           <div className="flex items-center gap-6">
             <button 
               onClick={() => setPeople(String(Math.max(1, numPeople - 1)))}
-              className="w-16 h-16 rounded-xl bg-transparent border border-charcoal/20 text-charcoal hover:bg-yellow-400 flex items-center justify-center text-3xl transition-colors"
+              className="w-16 h-16  bg-transparent border border-charcoal/20 text-charcoal hover:bg-yellow-400 flex items-center justify-center text-3xl transition-colors"
             >-</button>
             <input
               type="number"
               value={people}
               onChange={(e) => setPeople(e.target.value)}
-              className={`flex-1 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-center text-2xl focus:outline-none focus-visible:ring-charcoal`}
+              className={`flex-1 bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-center text-2xl focus:outline-none focus-visible:ring-charcoal`}
               min="1"
             />
             <button 
               onClick={() => setPeople(String(numPeople + 1))}
-              className="w-16 h-16 rounded-xl bg-transparent border border-charcoal/20 text-charcoal hover:bg-yellow-400 flex items-center justify-center text-3xl transition-colors"
+              className="w-16 h-16  bg-transparent border border-charcoal/20 text-charcoal hover:bg-yellow-400 flex items-center justify-center text-3xl transition-colors"
             >+</button>
           </div>
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-12">
+      <div className="glass-panel  p-10 sm:p-12 flex flex-col justify-center space-y-12">
         <div className="flex justify-between items-end">
           <div>
             <div className="text-charcoal/70 text-xl font-medium uppercase tracking-widest">Tip Amount</div>

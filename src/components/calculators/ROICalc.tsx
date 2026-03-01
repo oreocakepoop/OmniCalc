@@ -23,13 +23,13 @@ export function ROICalc() {
 
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Amount Invested</label>
           <div className="relative">
             <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">$</span>
             <input type="number" value={invested} onChange={(e) => setInvested(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
+              className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
           </div>
         </div>
         <div>
@@ -37,17 +37,17 @@ export function ROICalc() {
           <div className="relative">
             <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">$</span>
             <input type="number" value={returned} onChange={(e) => setReturned(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
+              className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
           </div>
         </div>
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Investment Length (Years)</label>
           <input type="number" value={years} onChange={(e) => setYears(e.target.value)}
-            className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
+            className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-10">
+      <div className="glass-panel  p-10 sm:p-12 flex flex-col justify-center space-y-10">
         <div className="text-center mb-6">
           <div className="text-charcoal/70 text-xl font-medium mb-4 uppercase tracking-widest">Return on Investment</div>
           <div className={`text-8xl font-light font-mono ${roi >= 0 ? 'text-mustard' : 'text-red-400'}`}>
@@ -56,13 +56,13 @@ export function ROICalc() {
         </div>
 
         <div className="grid grid-cols-2 gap-6">
-          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+          <div className="bg-transparent  p-8 border border-charcoal/20 text-center">
             <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">Net Profit</div>
             <div className={`text-3xl font-mono ${profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {profit >= 0 ? '+' : '-'}{formatCurrency(Math.abs(profit))}
             </div>
           </div>
-          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+          <div className="bg-transparent  p-8 border border-charcoal/20 text-center">
             <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">Annualized ROI</div>
             <div className={`text-3xl font-mono ${annualized >= 0 ? 'text-mustard' : 'text-red-400'}`}>
               {formatPercent(annualized)}

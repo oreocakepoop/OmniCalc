@@ -20,7 +20,7 @@ export function DiscountCalc() {
 
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Original Price</label>
           <div className="relative">
@@ -30,10 +30,10 @@ export function DiscountCalc() {
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+                className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
                 placeholder="0.00"
               />
-              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
                 {price ? new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(parseFloat(price)) : '0.00'}
               </div>
             </div>
@@ -48,10 +48,10 @@ export function DiscountCalc() {
                 type="number"
                 value={discount}
                 onChange={(e) => setDiscount(e.target.value)}
-                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+                className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
                 placeholder="20"
               />
-              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
                 {discount ? new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(parseFloat(discount)) : '20'}
               </div>
             </div>
@@ -67,10 +67,10 @@ export function DiscountCalc() {
                 type="number"
                 value={tax}
                 onChange={(e) => setTax(e.target.value)}
-                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+                className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
                 placeholder="8.5"
               />
-              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
                 {tax ? new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(parseFloat(tax)) : '8.5'}
               </div>
             </div>
@@ -79,8 +79,8 @@ export function DiscountCalc() {
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-8">
-        <div className="bg-transparent rounded-2xl p-10 border border-charcoal/20 space-y-6">
+      <div className="glass-panel  p-10 sm:p-12 flex flex-col justify-center space-y-8">
+        <div className="bg-transparent  p-10 border border-charcoal/20 space-y-6">
           <div className="flex justify-between text-xl">
             <span className="text-charcoal/70">Original Price</span>
             <span className={`font-mono text-mustard`}>{formatCurrency(originalPrice)}</span>

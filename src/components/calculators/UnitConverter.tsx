@@ -83,13 +83,13 @@ export function UnitConverter() {
 
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <div className="flex flex-wrap gap-4 mb-8">
           {(Object.keys(units) as Category[]).map(cat => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`flex-1 min-w-[140px] py-4 px-6 text-xl font-medium rounded-lg capitalize transition-colors ${category === cat ? 'bg-charcoal' + ' text-white shadow-sm' : 'bg-transparent text-charcoal/70 hover:text-charcoal border border-charcoal/20'}`}
+              className={`flex-1 min-w-[140px] py-4 px-6 text-xl font-medium  capitalize transition-colors ${category === cat ? 'bg-charcoal' + ' text-white shadow-sm' : 'bg-transparent text-charcoal/70 hover:text-charcoal border border-charcoal/20'}`}
             >
               {cat}
             </button>
@@ -102,7 +102,7 @@ export function UnitConverter() {
             <select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
+              className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
             >
               {units[category].map(u => <option key={u} value={u}>{u}</option>)}
             </select>
@@ -119,24 +119,24 @@ export function UnitConverter() {
               type="number"
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl font-mono focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+              className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl font-mono focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
               placeholder="0"
             />
-            <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl font-mono pointer-events-none focus-visible:ring-charcoal`}>
+            <div className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl font-mono pointer-events-none focus-visible:ring-charcoal`}>
               {value ? formatNumber(value) : '0'}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-10">
+      <div className="glass-panel  p-10 sm:p-12 flex flex-col justify-center space-y-10">
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">To</label>
           <div className="relative">
             <select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
+              className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
             >
               {units[category].map(u => <option key={u} value={u}>{u}</option>)}
             </select>

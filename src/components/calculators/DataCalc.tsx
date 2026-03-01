@@ -33,39 +33,39 @@ export function DataCalc() {
 
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <h3 className="text-2xl font-medium text-charcoal">Data Conversion</h3>
         <div className="space-y-6">
           <div className="flex gap-6">
             <input type="number" value={size} onChange={(e) => setSize(e.target.value)}
-              className={`flex-1 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
+              className={`flex-1 bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
             <select value={fromUnit} onChange={(e) => setFromUnit(Number(e.target.value))}
-              className="w-32 bg-white text-charcoal border border-charcoal/20 rounded-xl px-4 text-xl text-charcoal focus:outline-none">
+              className="w-32 bg-white text-charcoal border border-charcoal/20  px-4 text-xl text-charcoal focus:outline-none">
               {units.map((u, i) => <option key={u} value={i}>{u}</option>)}
             </select>
           </div>
           <div className="flex justify-center text-charcoal/50 text-2xl">↓</div>
           <div className="flex gap-6">
-            <div className={`flex-1 bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl font-mono text-mustard overflow-hidden`}>
+            <div className={`flex-1 bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl font-mono text-mustard overflow-hidden`}>
               {formatNumber(converted)}
             </div>
             <select value={toUnit} onChange={(e) => setToUnit(Number(e.target.value))}
-              className="w-32 bg-white text-charcoal border border-charcoal/20 rounded-xl px-4 text-xl text-charcoal focus:outline-none">
+              className="w-32 bg-white text-charcoal border border-charcoal/20  px-4 text-xl text-charcoal focus:outline-none">
               {units.map((u, i) => <option key={u} value={i}>{u}</option>)}
             </select>
           </div>
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <h3 className="text-2xl font-medium text-charcoal">Transfer Time</h3>
         <div className="space-y-6">
           <div>
             <label className="block text-xl font-medium text-charcoal/70 mb-4">Network Speed (Mbps)</label>
             <input type="number" value={speed} onChange={(e) => setSpeed(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
+              className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none focus-visible:ring-charcoal`} />
           </div>
-          <div className={`mt-8 p-10 rounded-2xl border border-charcoal bg-charcoal text-mustard border-2 border-charcoal/20 text-center`}>
+          <div className={`mt-8 p-10  border border-charcoal bg-charcoal text-mustard border-2 border-charcoal/20 text-center`}>
             <div className="text-xl font-medium mb-4 opacity-80">Estimated Time</div>
             <div className="text-5xl font-light font-mono">{formatTime(seconds)}</div>
           </div>

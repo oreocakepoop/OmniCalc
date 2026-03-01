@@ -27,15 +27,15 @@ export function CompoundCalc() {
 
   return (
     <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <div className="lg:col-span-5 glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="lg:col-span-5 glass-panel  p-10 sm:p-12 space-y-8">
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">Initial Investment</label>
           <div className="relative">
             <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">$</span>
             <div className="relative w-full">
               <input type="number" value={principal} onChange={(e) => setPrincipal(e.target.value)}
-                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal transition-all`} />
-              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+                className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal transition-all`} />
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
                 {principal ? new Intl.NumberFormat('en-US').format(parseFloat(principal)) : '0'}
               </div>
             </div>
@@ -47,8 +47,8 @@ export function CompoundCalc() {
             <span className="absolute left-6 top-1/2 -translate-y-1/2 text-charcoal/50 text-2xl">$</span>
             <div className="relative w-full">
               <input type="number" value={monthly} onChange={(e) => setMonthly(e.target.value)}
-                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal transition-all`} />
-              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+                className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal transition-all`} />
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
                 {monthly ? new Intl.NumberFormat('en-US').format(parseFloat(monthly)) : '0'}
               </div>
             </div>
@@ -73,21 +73,21 @@ export function CompoundCalc() {
       </div>
 
       <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="sm:col-span-2 glass-panel rounded-3xl p-12 flex flex-col justify-center items-center text-center">
+        <div className="sm:col-span-2 glass-panel  p-12 flex flex-col justify-center items-center text-center">
           <div className="text-charcoal/70 text-xl font-medium mb-6 uppercase tracking-widest">Future Value</div>
           <div className={`text-7xl sm:text-9xl font-light font-mono text-mustard tracking-tight`}>
             ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(futureValue)}
           </div>
         </div>
         
-        <div className="glass-panel rounded-3xl p-10 flex flex-col justify-center">
+        <div className="glass-panel  p-10 flex flex-col justify-center">
           <div className="text-charcoal/50 text-xl font-medium mb-4">Total Invested</div>
           <div className={`text-4xl font-mono text-mustard`}>
             ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(totalInvested)}
           </div>
         </div>
 
-        <div className="glass-panel rounded-3xl p-10 flex flex-col justify-center">
+        <div className="glass-panel  p-10 flex flex-col justify-center">
           <div className="text-charcoal/50 text-xl font-medium mb-4">Total Interest Earned</div>
           <div className="text-4xl font-mono text-emerald-400">
             +${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(totalInterest)}

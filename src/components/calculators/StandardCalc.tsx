@@ -76,7 +76,7 @@ export function StandardCalc() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto flex flex-col shadow-2xl overflow-hidden rounded-[2rem] border-4 border-charcoal">
+    <div className="w-full max-w-3xl mx-auto flex flex-col shadow-2xl overflow-hidden -[2rem] border-4 border-charcoal">
       
       {/* Display Block (Mustard) */}
       <div 

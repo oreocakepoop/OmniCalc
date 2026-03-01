@@ -25,14 +25,14 @@ export function CurrencyCalc() {
 
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
+      <div className="glass-panel  p-10 sm:p-12 space-y-8">
         <div>
           <label className="block text-xl font-medium text-charcoal/70 mb-4 uppercase tracking-widest">From Currency</label>
           <div className="relative">
             <select
               value={from}
               onChange={(e) => setFrom(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
+              className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
             >
               {Object.keys(rates).map(key => (
                 <option key={key} value={key}>{key} - {rates[key].name}</option>
@@ -53,10 +53,10 @@ export function CurrencyCalc() {
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
+                className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl focus:outline-none absolute inset-0 opacity-0 z-10 cursor-text focus-visible:ring-charcoal`}
                 placeholder="0"
               />
-              <div className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
+              <div className={`w-full bg-white text-charcoal border border-charcoal/20  pl-12 pr-6 py-5 text-2xl pointer-events-none focus-visible:ring-charcoal`}>
                 {amount ? formatNumber(parseFloat(amount)) : '0'}
               </div>
             </div>
@@ -69,7 +69,7 @@ export function CurrencyCalc() {
             <select
               value={to}
               onChange={(e) => setTo(e.target.value)}
-              className={`w-full bg-white text-charcoal border border-charcoal/20 rounded-xl px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
+              className={`w-full bg-white text-charcoal border border-charcoal/20  px-6 py-5 text-2xl focus:outline-none appearance-none focus-visible:ring-charcoal`}
             >
               {Object.keys(rates).map(key => (
                 <option key={key} value={key}>{key} - {rates[key].name}</option>
@@ -82,7 +82,7 @@ export function CurrencyCalc() {
         </div>
       </div>
 
-      <div className="glass-panel rounded-3xl p-10 sm:p-12 flex flex-col justify-center space-y-10">
+      <div className="glass-panel  p-10 sm:p-12 flex flex-col justify-center space-y-10">
         <div className="text-center mb-6">
           <div className="text-charcoal/70 text-xl font-medium mb-4 uppercase tracking-widest">Converted Amount</div>
           <div className={`text-6xl font-light font-mono text-mustard break-words`}>
@@ -91,13 +91,13 @@ export function CurrencyCalc() {
         </div>
 
         <div className="grid grid-cols-2 gap-6">
-          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+          <div className="bg-transparent  p-8 border border-charcoal/20 text-center">
             <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">{from} to {to}</div>
             <div className="text-2xl font-mono text-charcoal">
               {(rates[to].rate / rates[from].rate).toFixed(4)}
             </div>
           </div>
-          <div className="bg-transparent rounded-2xl p-8 border border-charcoal/20 text-center">
+          <div className="bg-transparent  p-8 border border-charcoal/20 text-center">
             <div className="text-sm text-charcoal/50 uppercase tracking-wider mb-2">{to} to {from}</div>
             <div className="text-2xl font-mono text-charcoal">
               {(rates[from].rate / rates[to].rate).toFixed(4)}

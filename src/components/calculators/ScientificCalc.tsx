@@ -75,8 +75,8 @@ export function ScientificCalc() {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto glass-panel rounded-3xl p-10 sm:p-12 space-y-8">
-      <div className="bg-charcoal rounded-2xl p-10 mb-8 text-right border border-charcoal/20">
+    <div className="w-full max-w-6xl mx-auto glass-panel  p-10 sm:p-12 space-y-8">
+      <div className="bg-charcoal  p-10 mb-8 text-right border border-charcoal/20">
         <div className={`text-6xl font-light font-mono tracking-tight overflow-hidden text-ellipsis break-all text-mustard`}>{display}</div>
       </div>
       
@@ -99,7 +99,7 @@ export function ScientificCalc() {
               else handleNum(btn);
             }}
             className={`
-              h-20 sm:h-24 rounded-xl text-xl sm:text-3xl font-medium transition-colors border-2 border-transparent hover:border-charcoal
+              h-20 sm:h-24  text-xl sm:text-3xl font-medium transition-colors border-2 border-transparent hover:border-charcoal
               ${['/', '*', '-', '+', '=', '^'].includes(btn) 
                 ? 'bg-charcoal text-mustard' 
                 : ['C', '⌫'].includes(btn)

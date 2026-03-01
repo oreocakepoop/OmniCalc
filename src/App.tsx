@@ -182,7 +182,7 @@ function AppContent() {
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 50, scale: 0.9 }}
-              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-charcoal text-mustard px-8 py-4 rounded-none border-4 border-mustard font-display font-black text-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-4 uppercase tracking-widest"
+              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-charcoal text-mustard px-8 py-4 font-display font-black text-xl flex items-center gap-4 uppercase tracking-widest border-4 border-charcoal shadow-[8px_8px_0px_0px_rgba(229,200,80,1)]"
             >
               <i className="fa-solid fa-bolt"></i>
               {toastMsg}
@@ -205,7 +205,7 @@ function AppContent() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="w-full max-w-5xl bg-white border-4 border-charcoal shadow-[0_30px_60px_rgba(0,0,0,0.4)] flex flex-col max-h-[80vh] overflow-hidden"
+                className="w-full max-w-5xl bg-white border-4 border-charcoal shadow-[16px_16px_0px_0px_rgba(42,47,37,1)] flex flex-col max-h-[80vh] overflow-hidden"
                 onClick={e => e.stopPropagation()}
               >
                 <div className="p-6 border-b-4 border-charcoal bg-yellow-400 flex items-center gap-4">
@@ -216,9 +216,9 @@ function AppContent() {
                     placeholder="Search 20+ calculators..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="flex-1 bg-transparent text-3xl font-display font-black text-charcoal placeholder-charcoal/30 outline-none"
+                    className="flex-1 bg-transparent text-3xl font-display font-black text-charcoal placeholder-charcoal/30 outline-none border-none shadow-none"
                   />
-                  <button onClick={() => setIsCommandPaletteOpen(false)} className="w-12 h-12 flex items-center justify-center bg-charcoal text-mustard hover:bg-mustard hover:text-charcoal transition-colors border-2 border-transparent hover:border-charcoal">
+                  <button onClick={() => setIsCommandPaletteOpen(false)} className="w-12 h-12 flex items-center justify-center bg-charcoal text-mustard hover:bg-mustard hover:text-charcoal transition-colors">
                     <i className="fa-solid fa-xmark text-2xl"></i>
                   </button>
                 </div>
@@ -228,7 +228,7 @@ function AppContent() {
                     <button
                       key={calc.id}
                       onClick={() => handleSelectCalc(calc.id as CalculatorId)}
-                      className={`flex items-center gap-4 p-6 border-4 text-left transition-all ${activeId === calc.id ? 'bg-charcoal border-charcoal text-mustard scale-[1.02] shadow-xl' : 'bg-white border-charcoal/20 text-charcoal hover:border-charcoal hover:bg-mustard hover:scale-[1.02] hover:shadow-xl'}`}
+                      className={`flex items-center gap-4 p-6 text-left transition-all ${activeId === calc.id ? 'bg-charcoal text-mustard scale-[1.02]' : 'bg-white text-charcoal hover:bg-mustard hover:scale-[1.02]'}`}
                     >
                       <div className={`w-16 h-16 flex items-center justify-center text-3xl shrink-0 ${activeId === calc.id ? 'bg-mustard text-charcoal' : 'bg-charcoal text-mustard'}`}>
                         <i className={calc.icon}></i>
@@ -253,7 +253,7 @@ function AppContent() {
         {/* Top Navigation Bar - Spacious and Clean */}
         <header className="w-full px-6 py-6 lg:px-12 lg:py-8 flex items-center justify-between border-b-4 border-charcoal/10 bg-white z-10">
           <div className="flex items-center gap-6">
-            <div className="w-16 h-16 bg-charcoal text-mustard flex items-center justify-center shadow-[4px_4px_0px_rgba(42,47,37,1)] border-2 border-charcoal">
+            <div className="w-16 h-16 bg-charcoal text-mustard flex items-center justify-center border-3 border-charcoal">
               <i className="fa-solid fa-calculator text-3xl"></i>
             </div>
             <div>
@@ -266,7 +266,7 @@ function AppContent() {
             {/* Command Palette Trigger */}
             <button 
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="hidden md:flex items-center gap-4 bg-white border-4 border-charcoal px-6 py-3 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="hidden md:flex items-center gap-4 bg-white px-6 py-3 hover:bg-mustard transition-colors"
             >
               <i className="fa-solid fa-magnifying-glass text-xl"></i>
               <span className="font-display font-black uppercase tracking-widest">Search Tools</span>
@@ -276,7 +276,7 @@ function AppContent() {
             {/* Mobile Search Icon */}
             <button 
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="md:hidden w-14 h-14 flex items-center justify-center bg-white border-4 border-charcoal hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="md:hidden w-14 h-14 flex items-center justify-center bg-white hover:bg-mustard transition-colors"
             >
               <i className="fa-solid fa-magnifying-glass text-xl"></i>
             </button>
@@ -285,7 +285,7 @@ function AppContent() {
             <button 
               onClick={handleGlobalReset}
               title="Reset Calculator"
-              className="w-14 h-14 flex items-center justify-center bg-white border-4 border-charcoal hover:bg-charcoal hover:text-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="w-14 h-14 flex items-center justify-center bg-white hover:bg-charcoal hover:text-mustard transition-colors"
             >
               <i className="fa-solid fa-rotate-right text-xl"></i>
             </button>
@@ -294,7 +294,7 @@ function AppContent() {
             <button 
               onClick={toggleFullscreen}
               title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
-              className="hidden sm:flex w-14 h-14 items-center justify-center bg-charcoal text-mustard border-4 border-charcoal hover:bg-mustard hover:text-charcoal transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="hidden sm:flex w-14 h-14 items-center justify-center bg-charcoal text-mustard hover:bg-mustard hover:text-charcoal transition-colors"
             >
               <i className={`fa-solid ${isFullscreen ? 'fa-compress' : 'fa-expand'} text-xl`}></i>
             </button>
@@ -312,7 +312,7 @@ function AppContent() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center justify-center gap-4 mb-4"
             >
-              <div className="w-12 h-12 bg-charcoal text-mustard flex items-center justify-center rounded-none border-2 border-charcoal">
+              <div className="w-12 h-12 bg-charcoal text-mustard flex items-center justify-center">
                 <i className={`${activeCalc?.icon} text-xl`}></i>
               </div>
               <span className="font-display font-black text-charcoal uppercase tracking-widest text-xl">{activeCalc?.category}</span>
@@ -349,7 +349,7 @@ function AppContent() {
                 const prevIndex = (currentIndex - 1 + calculators.length) % calculators.length;
                 handleSelectCalc(calculators[prevIndex].id as CalculatorId);
               }}
-              className="flex items-center gap-4 bg-white border-4 border-charcoal px-6 py-4 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="flex items-center gap-4 bg-white px-6 py-4 hover:bg-mustard transition-colors"
             >
               <i className="fa-solid fa-arrow-left text-xl"></i>
               <span className="font-display font-black uppercase tracking-widest hidden sm:inline">Previous</span>
@@ -360,7 +360,7 @@ function AppContent() {
                 const nextIndex = (currentIndex + 1) % calculators.length;
                 handleSelectCalc(calculators[nextIndex].id as CalculatorId);
               }}
-              className="flex items-center gap-4 bg-white border-4 border-charcoal px-6 py-4 hover:bg-mustard transition-colors shadow-[4px_4px_0px_rgba(42,47,37,1)] active:translate-y-1 active:shadow-none"
+              className="flex items-center gap-4 bg-white px-6 py-4 hover:bg-mustard transition-colors"
             >
               <span className="font-display font-black uppercase tracking-widest hidden sm:inline">Next</span>
               <i className="fa-solid fa-arrow-right text-xl"></i>
